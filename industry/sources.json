@@ -217,7 +217,7 @@
       "config": {
         "feedUrl": "https://nikkan-spa.jp/feed",
         "ingestNoiseFilter": {
-          "keepIfMatches": ["av女優", "av新法", "アダルト", "セクシー", "女優", "風俗", "成人", "fanza", "dmm", "jav", "熟女", "人妻", "素人", "ポルノ", "av出演"]
+          "keepIfMatches": ["av女優", "av新法", "アダルト", "セクシー女優", "av出演", "fanza", "dmm", "jav", "成人映画", "成人向け", "ポルノ", "熟女", "人妻", "素人", "avメーカー", "モザイク"]
         },
         "_aihot": { "initialBackfillLimit": 6 }
       },
@@ -236,7 +236,7 @@
       "config": {
         "feedUrl": "https://www.tokyoheadline.com/feed/",
         "ingestNoiseFilter": {
-          "keepIfMatches": ["av女優", "av新法", "アダルト", "セクシー", "女優", "風俗", "成人", "fanza", "dmm", "jav", "熟女", "人妻", "素人", "ポルノ", "av出演"]
+          "keepIfMatches": ["av女優", "av新法", "アダルト", "セクシー女優", "av出演", "fanza", "dmm", "jav", "成人映画", "成人向け", "ポルノ", "熟女", "人妻", "素人", "avメーカー", "モザイク"]
         },
         "_aihot": { "initialBackfillLimit": 6 }
       },
@@ -255,7 +255,7 @@
       "config": {
         "feedUrl": "https://www.tokyo-sports.co.jp/list/feed/rss",
         "ingestNoiseFilter": {
-          "keepIfMatches": ["av女優", "av新法", "アダルト", "セクシー", "女優", "風俗", "成人", "fanza", "dmm", "jav", "熟女", "人妻", "素人", "ポルノ", "av出演"]
+          "keepIfMatches": ["av女優", "av新法", "アダルト", "セクシー女優", "av出演", "fanza", "dmm", "jav", "成人映画", "成人向け", "ポルノ", "熟女", "人妻", "素人", "avメーカー", "モザイク"]
         },
         "_aihot": { "initialBackfillLimit": 6 }
       },
@@ -274,7 +274,7 @@
       "config": {
         "feedUrl": "https://www.dailyshincho.jp/feed",
         "ingestNoiseFilter": {
-          "keepIfMatches": ["av女優", "av新法", "アダルト", "セクシー", "女優", "風俗", "成人", "fanza", "dmm", "jav", "熟女", "人妻", "素人", "ポルノ", "av出演"]
+          "keepIfMatches": ["av女優", "av新法", "アダルト", "セクシー女優", "av出演", "fanza", "dmm", "jav", "成人映画", "成人向け", "ポルノ", "熟女", "人妻", "素人", "avメーカー", "モザイク"]
         },
         "_aihot": { "initialBackfillLimit": 6 }
       },
@@ -293,7 +293,7 @@
       "config": {
         "feedUrl": "https://www.j-cast.com/index.xml",
         "ingestNoiseFilter": {
-          "keepIfMatches": ["av女優", "av新法", "アダルト", "セクシー", "女優", "風俗", "成人", "fanza", "dmm", "jav", "熟女", "人妻", "素人", "ポルノ", "av出演"]
+          "keepIfMatches": ["av女優", "av新法", "アダルト", "セクシー女優", "av出演", "fanza", "dmm", "jav", "成人映画", "成人向け", "ポルノ", "熟女", "人妻", "素人", "avメーカー", "モザイク"]
         },
         "_aihot": { "initialBackfillLimit": 6 }
       },
