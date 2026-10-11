@@ -178,10 +178,10 @@ test("hidden page parts are dropped whole, and a news page's closing blocks are 
 });
 
 test("noise words match whatever their case", () => {
-  // 笔记本 is noise, but the lower-case exemption agent keeps a post about an Agent product.
+  // 笔记本 is noise, but the lower-case exemption vr keeps a post about a VR product.
   const source = { config: { ingestNoiseFilter: { dropMarkers: ["笔记本", "iphone"], keepIfMatches: ["vr"] } } } as never;
   const c = (title: string, excerpt: string) => ({ url: "https://example.org/a", title, excerpt }) as never;
-  assert.equal(noiseFiltered(c("Manus：正组建团队开发面向国内市场的产品", "与笔记本厂商合作的 Agent 产品"), source), false);
+  assert.equal(noiseFiltered(c("S1：正组建团队开发面向国内市场的产品", "与笔记本厂商合作的 VR 产品"), source), false);
   assert.equal(noiseFiltered(c("新款笔记本开售", "首发价 4999 元"), source), true);
   assert.equal(noiseFiltered(c("iPhone 18 开售", ""), source), true);
 });

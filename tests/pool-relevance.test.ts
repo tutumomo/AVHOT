@@ -50,15 +50,15 @@ test("short and multi-term relevance keep cross-field AND and deterministic scor
 });
 
 test("company relevance retains tag-only candidates, boosts and unique totals", async () => {
-  await add("company-both", "sod", "sod", { title: "SOD", tags: ["entity:openai"], age: 100 });
-  await add("company-tag", "", "", { tags: ["entity:openai"], noSearchRow: true, age: 1 });
-  await add("company-text", "openai qy", "sod", { title: "SOD", age: 60 });
+  await add("company-both", "sod", "sod", { title: "SOD", tags: ["entity:sod"], age: 100 });
+  await add("company-tag", "", "", { tags: ["entity:sod"], noSearchRow: true, age: 1 });
+  await add("company-text", "sod qy", "sod", { title: "SOD", age: 60 });
   await add("company-low", "sod", "", { age: 1 });
-  await add("company-withdrawn", "sod", "sod", { tags: ["entity:openai"], visibility: "withdrawn" });
+  await add("company-withdrawn", "sod", "sod", { tags: ["entity:sod"], visibility: "withdrawn" });
   const company = await loadPool(query("SOD"));
   assert.deepEqual(company.items.map(item => item.id), ["company-both", "company-tag", "company-text", "company-low"].map(id));
   assert.equal(company.total, 4, "the text-and-tag candidate counts once");
-  const multi = await loadPool(query("openai qy"));
+  const multi = await loadPool(query("sod qy"));
   assert.deepEqual(multi.items.map(item => item.id), [id("company-text")], "only the whole company alias expands the candidates");
 });
 
