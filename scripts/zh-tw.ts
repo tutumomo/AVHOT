@@ -32,23 +32,17 @@ function restore(text: string): string {
   return out;
 }
 
-/** 要轉的程式碼目錄：讀者或管理者看得到的文案。刻意不含 content/、lib/、providers/ —— 那裡的中文是
- *  用來比對來源網頁的正則與樣式，換成繁體會讓它們比對不到簡體來源。 */
-const CODE_DIRS = [
-  "apps/web/app",
-  "apps/web/tests",
-  "tests",
-  "packages/contracts/src",
-  "packages/backend/src/publication",
-  "packages/backend/src/reports",
-  "packages/backend/src/notify",
-  "packages/backend/src/operations",
-  "packages/backend/src/admin",
-  "packages/backend/src/editorial",
-  "site",
-  "industry",
-  "modules",
-];
+/**
+ * 要轉的程式碼目錄。覆蓋面要一致：產生字串的程式與斷言那些字串的測試必須一起轉，
+ * 否則兩邊一個繁體一個簡體，測試會整批失敗。
+ */
+const CODE_DIRS = ["apps", "packages/contracts/src", "packages/backend/src", "tests", "scripts"];
+/**
+ * 不轉的檔案：這裡的中文是拿來比對**來源網頁**的（樣板文字、正文清洗、中文標點），
+ * 換成繁體就比對不到簡體來源了。它們的程式碼不變，只有訊息文字留在簡體。
+ */
+const CODE_SKIP = ["packages/backend/src/content/", "packages/backend/src/lib/text.ts", "scripts/zh-tw.ts"];
+
 /** 要整份轉的文字檔（Markdown、JSON）：都是文案、詞表或說明。 */
 const TEXT_FILES = [
   "site/pages/terms.md",
@@ -98,7 +92,11 @@ function targets(): string[] {
   for (const f of OWN_FILES) files.add(path.join(ROOT, f));
   for (const f of TEXT_FILES) files.add(path.join(ROOT, f));
   files.add(path.join(ROOT, "scripts/nameplates.ts"));
-  return [...files].sort();
+  const kept = [...files].filter((f) => {
+    const rel = path.relative(ROOT, f).replace(/\\/g, "/");
+    return !CODE_SKIP.some((skip) => rel === skip || rel.startsWith(skip));
+  });
+  return kept.sort();
 }
 
 interface Edit {
@@ -122,7 +120,8 @@ function codeEdits(text: string): Edit[] {
     if (!node || typeof node !== "object") return;
     const n = node as { type?: string; start?: number; end?: number; computed?: boolean; key?: { type?: string; start?: number; end?: number } } & Record<string, unknown>;
     if (typeof n.type === "string" && typeof n.start === "number" && typeof n.end === "number") {
-      const kinds = ["StringLiteral", "TemplateElement", "JSXText", "RegExpLiteral", "DirectiveLiteral"];
+      // 正則一律不動：框架裡的中文正則用來比對來源網頁，換成繁體就比對不到了。
+      const kinds = ["StringLiteral", "TemplateElement", "JSXText", "DirectiveLiteral"];
       if (kinds.includes(n.type)) {
         const raw = text.slice(n.start, n.end);
         if (HAN.test(raw)) {

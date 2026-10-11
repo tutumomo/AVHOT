@@ -21,7 +21,7 @@ export interface SourceHealthRow {
   detail_failures: number;
 }
 
-export const SOURCE_USE_NAMES: Record<string, string> = { editorial: "编辑内容", hot_signal: "热度信号" };
+export const SOURCE_USE_NAMES: Record<string, string> = { editorial: "編輯內容", hot_signal: "熱度訊號" };
 
 /** Matches a saved error that is a spent provider budget. */
 const spentBudget = sql`LIKE ${budgetMessage("%", "%")}`;
@@ -78,5 +78,5 @@ export async function sourceHealth(now = Date.now()) {
 /** Bounded display, with the full count explicit; the underlying assessment never drops the tail. */
 export function sourceHealthList(rows: SourceHealthRow[], describe: (row: SourceHealthRow) => string, limit = 10): string {
   const list = rows.slice(0, limit).map(s => `${s.name}（${s.id}）：${describe(s)}`).join("；");
-  return list + (rows.length > limit ? `；另有 ${rows.length - limit} 个，见后台信源列表` : "");
+  return list + (rows.length > limit ? `；另有 ${rows.length - limit} 個，見後臺信源列表` : "");
 }
