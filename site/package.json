@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@aihot/age-gate": "*",
+    "@aihot/covers": "*",
     "@aihot/fanza": "*"
   }
 }
