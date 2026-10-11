@@ -1,368 +1,369 @@
 {
-  "$comment": "示范信源：首次启动时导入（scripts/seed.ts），已存在的不会被覆盖。之后在后台“信源”里新建、修改和暂停。字段说明见 docs/customize.md。",
+  "$comment": "示范信源：首次启动时导入（scripts/seed.ts），已存在的不会被覆盖。之后在后台“信源”里新建、修改和暂停。字段说明见 docs/customize.md。全部条目都在 2026-10-11 用浏览器 User-Agent 实测过：只收抓得到、有发布日期的源。不含任何盗版、磁力、网盘或串流索引站。",
+  "$reachability": "从本机（台湾出口）实测：FANZA／DMM 地区封锁（お住まいの地域からご利用になれません），MGS動画、FALENO、PRESTIGE、SOD 全部 403（CloudFront/WAF），KMP 超时。要收这些官方源需要日本出口（EGRESS_PROXY_URL）或改用 DMM Web Service API v3（api.dmm.com 本身可通，需要 api_id 与 affiliate_id）。",
   "sources": [
     {
-      "id": "rss-openai-news",
-      "name": "OpenAI News",
+      "id": "rss-avn-articles",
+      "name": "AVN（Adult Video News）",
       "kind": "rss",
       "config": {
-        "feedUrl": "https://openai.com/news/rss.xml",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
+        "feedUrl": "https://avn.com/feed/articles.rss",
+        "_aihot": { "initialBackfillLimit": 10 }
       },
-      "tier": "T1",
-      "owner_entity_id": "openai",
+      "tier": "T2",
+      "owner_entity_id": "avn",
       "participation_mode": "editorial",
-      "interval_minutes": 120,
-      "tags": [
-        "官方"
-      ],
+      "interval_minutes": 60,
+      "tags": ["业界媒体"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
     {
-      "id": "rss-google-deepmind",
-      "name": "Google DeepMind",
+      "id": "rss-xbiz-all",
+      "name": "XBIZ",
       "kind": "rss",
       "config": {
-        "feedUrl": "https://deepmind.google/blog/rss.xml",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
+        "feedUrl": "https://www.xbiz.com/rss/all.xml",
+        "_aihot": { "initialBackfillLimit": 8 }
       },
-      "tier": "T1",
-      "owner_entity_id": "google",
+      "tier": "T2",
+      "owner_entity_id": "xbiz",
       "participation_mode": "editorial",
-      "interval_minutes": 120,
-      "tags": [
-        "官方"
-      ],
+      "interval_minutes": 60,
+      "tags": ["业界媒体"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
     {
-      "id": "rss-google-research",
-      "name": "Google Research",
+      "id": "rss-xbiz-legal",
+      "name": "XBIZ · Legal（法规）",
       "kind": "rss",
       "config": {
-        "feedUrl": "https://research.google/blog/rss/",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
+        "feedUrl": "https://www.xbiz.com/rss/legal.xml",
+        "_aihot": { "initialBackfillLimit": 8 }
       },
-      "tier": "T1",
-      "owner_entity_id": "google",
+      "tier": "T2",
+      "owner_entity_id": "xbiz",
       "participation_mode": "editorial",
       "interval_minutes": 120,
-      "tags": [
-        "官方",
-        "研究"
-      ],
+      "tags": ["业界媒体", "法规"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
     {
-      "id": "rss-hugging-face",
-      "name": "Hugging Face Blog",
+      "id": "rss-xbiz-movies-stars",
+      "name": "XBIZ · Movies & Stars（作品与出演者）",
       "kind": "rss",
       "config": {
-        "feedUrl": "https://huggingface.co/blog/feed.xml",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
+        "feedUrl": "https://www.xbiz.com/rss/news/movies-stars.xml",
+        "_aihot": { "initialBackfillLimit": 8 }
       },
-      "tier": "T1",
-      "owner_entity_id": "hugging-face",
+      "tier": "T2",
+      "owner_entity_id": "xbiz",
       "participation_mode": "editorial",
-      "interval_minutes": 120,
-      "tags": [
-        "官方",
-        "开源"
-      ],
+      "interval_minutes": 60,
+      "tags": ["业界媒体", "作品"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
     {
-      "id": "rss-microsoft-research",
-      "name": "Microsoft Research",
+      "id": "rss-xbiz-web-tech",
+      "name": "XBIZ · Web & Tech（平台与技术）",
       "kind": "rss",
       "config": {
-        "feedUrl": "https://www.microsoft.com/en-us/research/feed/",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
+        "feedUrl": "https://www.xbiz.com/rss/news/web-tech.xml",
+        "_aihot": { "initialBackfillLimit": 6 }
       },
-      "tier": "T1",
-      "owner_entity_id": "microsoft",
+      "tier": "T2",
+      "owner_entity_id": "xbiz",
       "participation_mode": "editorial",
       "interval_minutes": 120,
-      "tags": [
-        "官方",
-        "研究"
-      ],
+      "tags": ["业界媒体", "平台"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
     {
-      "id": "rss-nvidia-blog",
-      "name": "NVIDIA Blog",
+      "id": "rss-xbiz-reviews",
+      "name": "XBIZ · Movie Reviews（新作评测）",
       "kind": "rss",
       "config": {
-        "feedUrl": "https://blogs.nvidia.com/feed/",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
+        "feedUrl": "https://www.xbiz.com/rss/movies/reviews.xml",
+        "_aihot": { "initialBackfillLimit": 6 }
       },
-      "tier": "T1",
-      "owner_entity_id": "nvidia",
+      "tier": "T2",
+      "owner_entity_id": "xbiz",
       "participation_mode": "editorial",
       "interval_minutes": 120,
-      "tags": [
-        "官方"
-      ],
+      "tags": ["业界媒体", "评测"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
     {
-      "id": "rss-aws-ml",
-      "name": "AWS Machine Learning Blog",
+      "id": "rss-xbiz-vr",
+      "name": "XBIZ · VR",
       "kind": "rss",
       "config": {
-        "feedUrl": "https://aws.amazon.com/blogs/machine-learning/feed/",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
+        "feedUrl": "https://www.xbiz.com/rss/vr.xml",
+        "_aihot": { "initialBackfillLimit": 6 }
       },
-      "tier": "T1",
-      "owner_entity_id": null,
-      "participation_mode": "editorial",
-      "interval_minutes": 120,
-      "tags": [
-        "官方",
-        "教程"
-      ],
-      "site_fulltext": false,
-      "syndicate_fulltext": false
-    },
-    {
-      "id": "rss-github-ai",
-      "name": "GitHub Blog · AI & ML",
-      "kind": "rss",
-      "config": {
-        "feedUrl": "https://github.blog/ai-and-ml/feed/",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
-      },
-      "tier": "T1",
-      "owner_entity_id": null,
-      "participation_mode": "editorial",
-      "interval_minutes": 120,
-      "tags": [
-        "官方"
-      ],
-      "site_fulltext": false,
-      "syndicate_fulltext": false
-    },
-    {
-      "id": "rss-mistral",
-      "name": "Mistral AI",
-      "kind": "rss",
-      "config": {
-        "feedUrl": "https://mistral.ai/news/rss",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
-      },
-      "tier": "T1",
-      "owner_entity_id": null,
-      "participation_mode": "editorial",
-      "interval_minutes": 120,
-      "tags": [
-        "官方"
-      ],
-      "site_fulltext": false,
-      "syndicate_fulltext": false
-    },
-    {
-      "id": "rss-bair",
-      "name": "Berkeley AI Research",
-      "kind": "rss",
-      "config": {
-        "feedUrl": "https://bair.berkeley.edu/blog/feed.xml",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
-      },
-      "tier": "T1",
-      "owner_entity_id": null,
+      "tier": "T2",
+      "owner_entity_id": "xbiz",
       "participation_mode": "editorial",
       "interval_minutes": 180,
-      "tags": [
-        "研究"
-      ],
+      "tags": ["业界媒体", "VR"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
     {
-      "id": "rss-the-verge-ai",
-      "name": "The Verge · AI",
+      "id": "rss-xbiz-europe",
+      "name": "XBIZ · Europe（欧洲市场）",
       "kind": "rss",
       "config": {
-        "feedUrl": "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
+        "feedUrl": "https://www.xbiz.com/rss/news/europe.xml",
+        "_aihot": { "initialBackfillLimit": 6 }
+      },
+      "tier": "T2",
+      "owner_entity_id": "xbiz",
+      "participation_mode": "editorial",
+      "interval_minutes": 180,
+      "tags": ["业界媒体", "欧美"],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-ynot",
+      "name": "YNOT",
+      "kind": "rss",
+      "config": {
+        "feedUrl": "https://www.ynot.com/feed/",
+        "_aihot": { "initialBackfillLimit": 8 }
       },
       "tier": "T2",
       "owner_entity_id": null,
       "participation_mode": "editorial",
       "interval_minutes": 60,
-      "tags": [
-        "媒体"
-      ],
+      "tags": ["业界媒体"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
     {
-      "id": "rss-techcrunch-ai",
-      "name": "TechCrunch · AI",
+      "id": "rss-fsc",
+      "name": "Free Speech Coalition（业界协会）",
       "kind": "rss",
       "config": {
-        "feedUrl": "https://techcrunch.com/category/artificial-intelligence/feed/",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
+        "feedUrl": "https://www.freespeechcoalition.com/blog?format=rss",
+        "_aihot": { "initialBackfillLimit": 8 }
       },
-      "tier": "T2",
-      "owner_entity_id": null,
+      "tier": "T1",
+      "owner_entity_id": "fsc",
       "participation_mode": "editorial",
-      "interval_minutes": 60,
-      "tags": [
-        "媒体"
-      ],
+      "interval_minutes": 180,
+      "tags": ["业界机构", "法规"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
     {
-      "id": "rss-ars-technica-ai",
-      "name": "Ars Technica · AI",
+      "id": "rss-apag",
+      "name": "APAG（出演者工会）",
       "kind": "rss",
       "config": {
-        "feedUrl": "https://arstechnica.com/ai/feed/",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
+        "feedUrl": "https://apagunion.com/feed/",
+        "_aihot": { "initialBackfillLimit": 6 }
       },
-      "tier": "T2",
-      "owner_entity_id": null,
+      "tier": "T1",
+      "owner_entity_id": "apag",
       "participation_mode": "editorial",
-      "interval_minutes": 60,
-      "tags": [
-        "媒体"
-      ],
+      "interval_minutes": 240,
+      "tags": ["业界机构", "人权"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
     {
-      "id": "rss-mit-tech-review-ai",
-      "name": "MIT Technology Review · AI",
+      "id": "rss-avopen-jp",
+      "name": "AV-open.com（日本成人产业观察）",
       "kind": "rss",
       "config": {
-        "feedUrl": "https://www.technologyreview.com/topic/artificial-intelligence/feed",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
-      },
-      "tier": "T2",
-      "owner_entity_id": null,
-      "participation_mode": "editorial",
-      "interval_minutes": 120,
-      "tags": [
-        "媒体"
-      ],
-      "site_fulltext": false,
-      "syndicate_fulltext": false
-    },
-    {
-      "id": "rss-the-decoder",
-      "name": "The Decoder",
-      "kind": "rss",
-      "config": {
-        "feedUrl": "https://the-decoder.com/feed/",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
-      },
-      "tier": "T2",
-      "owner_entity_id": null,
-      "participation_mode": "editorial",
-      "interval_minutes": 60,
-      "tags": [
-        "媒体"
-      ],
-      "site_fulltext": false,
-      "syndicate_fulltext": false
-    },
-    {
-      "id": "rss-simon-willison",
-      "name": "Simon Willison",
-      "kind": "rss",
-      "config": {
-        "feedUrl": "https://simonwillison.net/atom/everything/",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
-      },
-      "tier": "T2",
-      "owner_entity_id": null,
-      "participation_mode": "editorial",
-      "interval_minutes": 120,
-      "tags": [
-        "个人"
-      ],
-      "site_fulltext": false,
-      "syndicate_fulltext": false
-    },
-    {
-      "id": "rss-import-ai",
-      "name": "Import AI",
-      "kind": "rss",
-      "config": {
-        "feedUrl": "https://importai.substack.com/feed",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
+        "feedUrl": "https://av-open.com/feed/",
+        "_aihot": { "initialBackfillLimit": 8 }
       },
       "tier": "T2",
       "owner_entity_id": null,
       "participation_mode": "editorial",
       "interval_minutes": 180,
-      "tags": [
-        "个人",
-        "周刊"
-      ],
+      "tags": ["日本媒体"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
     {
-      "id": "rss-latent-space",
-      "name": "Latent Space",
+      "id": "rss-menscyzo",
+      "name": "メンズサイゾー",
       "kind": "rss",
       "config": {
-        "feedUrl": "https://www.latent.space/feed",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
+        "feedUrl": "https://www.menscyzo.com/index.xml",
+        "_aihot": { "initialBackfillLimit": 8 }
+      },
+      "tier": "T2",
+      "owner_entity_id": null,
+      "participation_mode": "editorial",
+      "interval_minutes": 120,
+      "tags": ["日本媒体"],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-nikkan-spa",
+      "name": "日刊SPA!",
+      "kind": "rss",
+      "config": {
+        "feedUrl": "https://nikkan-spa.jp/feed",
+        "ingestNoiseFilter": {
+          "keepIfMatches": ["av女優", "av新法", "アダルト", "セクシー", "女優", "風俗", "成人", "fanza", "dmm", "jav", "熟女", "人妻", "素人", "ポルノ", "av出演"]
+        },
+        "_aihot": { "initialBackfillLimit": 6 }
+      },
+      "tier": "T2",
+      "owner_entity_id": null,
+      "participation_mode": "editorial",
+      "interval_minutes": 120,
+      "tags": ["日本媒体", "需关键词过滤"],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-tokyo-headline",
+      "name": "TOKYO HEADLINE",
+      "kind": "rss",
+      "config": {
+        "feedUrl": "https://www.tokyoheadline.com/feed/",
+        "ingestNoiseFilter": {
+          "keepIfMatches": ["av女優", "av新法", "アダルト", "セクシー", "女優", "風俗", "成人", "fanza", "dmm", "jav", "熟女", "人妻", "素人", "ポルノ", "av出演"]
+        },
+        "_aihot": { "initialBackfillLimit": 6 }
       },
       "tier": "T2",
       "owner_entity_id": null,
       "participation_mode": "editorial",
       "interval_minutes": 180,
-      "tags": [
-        "个人"
-      ],
+      "tags": ["日本媒体", "需关键词过滤", "奖项"],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-tokyo-sports",
+      "name": "東スポWEB",
+      "kind": "rss",
+      "config": {
+        "feedUrl": "https://www.tokyo-sports.co.jp/list/feed/rss",
+        "ingestNoiseFilter": {
+          "keepIfMatches": ["av女優", "av新法", "アダルト", "セクシー", "女優", "風俗", "成人", "fanza", "dmm", "jav", "熟女", "人妻", "素人", "ポルノ", "av出演"]
+        },
+        "_aihot": { "initialBackfillLimit": 6 }
+      },
+      "tier": "T2",
+      "owner_entity_id": null,
+      "participation_mode": "editorial",
+      "interval_minutes": 120,
+      "tags": ["日本媒体", "需关键词过滤"],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-daily-shincho",
+      "name": "デイリー新潮",
+      "kind": "rss",
+      "config": {
+        "feedUrl": "https://www.dailyshincho.jp/feed",
+        "ingestNoiseFilter": {
+          "keepIfMatches": ["av女優", "av新法", "アダルト", "セクシー", "女優", "風俗", "成人", "fanza", "dmm", "jav", "熟女", "人妻", "素人", "ポルノ", "av出演"]
+        },
+        "_aihot": { "initialBackfillLimit": 6 }
+      },
+      "tier": "T2",
+      "owner_entity_id": null,
+      "participation_mode": "editorial",
+      "interval_minutes": 180,
+      "tags": ["日本媒体", "需关键词过滤"],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-jcast",
+      "name": "J-CASTニュース",
+      "kind": "rss",
+      "config": {
+        "feedUrl": "https://www.j-cast.com/index.xml",
+        "ingestNoiseFilter": {
+          "keepIfMatches": ["av女優", "av新法", "アダルト", "セクシー", "女優", "風俗", "成人", "fanza", "dmm", "jav", "熟女", "人妻", "素人", "ポルノ", "av出演"]
+        },
+        "_aihot": { "initialBackfillLimit": 6 }
+      },
+      "tier": "T2",
+      "owner_entity_id": null,
+      "participation_mode": "editorial",
+      "interval_minutes": 120,
+      "tags": ["日本媒体", "需关键词过滤"],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-duga-new",
+      "name": "DUGA 新着作品",
+      "kind": "rss",
+      "config": {
+        "feedUrl": "https://duga.jp/news.xml",
+        "_aihot": { "initialBackfillLimit": 10 }
+      },
+      "tier": "T1",
+      "owner_entity_id": "duga",
+      "participation_mode": "editorial",
+      "interval_minutes": 120,
+      "tags": ["平台", "新作"],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "web-tma-news",
+      "name": "TMA 新着情報",
+      "kind": "web_list",
+      "config": {
+        "url": "https://www.tma.co.jp/blogs/news",
+        "parseMode": "html",
+        "itemSelector": "div.block.text",
+        "linkSelector": "h2 a",
+        "titleSelector": "h2 a",
+        "publishedAtSelector": "span.meta-item",
+        "publishedAtUtcOffset": "+09:00",
+        "allowUrlPrefixes": ["https://www.tma.co.jp/blogs/news/"],
+        "_aihot": { "initialBackfillLimit": 8 }
+      },
+      "tier": "T1",
+      "owner_entity_id": "tma",
+      "participation_mode": "editorial",
+      "interval_minutes": 180,
+      "tags": ["片商官方"],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "web-tpowers-topics",
+      "name": "ティーパワーズ 更新情報",
+      "kind": "web_list",
+      "config": {
+        "url": "https://www.t-powers.co.jp/topics/",
+        "parseMode": "html",
+        "itemSelector": "article.p-topics__list-item",
+        "linkSelector": "a",
+        "titleSelector": "h3.p-topics__list-title",
+        "publishedAtSelector": "time.p-topics__list-date",
+        "publishedAtUtcOffset": "+09:00",
+        "allowUrlPrefixes": ["https://www.t-powers.co.jp/release/"],
+        "_aihot": { "initialBackfillLimit": 8 }
+      },
+      "tier": "T1",
+      "owner_entity_id": "tpowers",
+      "participation_mode": "editorial",
+      "interval_minutes": 180,
+      "tags": ["事务所官方"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     }

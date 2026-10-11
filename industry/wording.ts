@@ -1,5 +1,10 @@
 // 读者看得到的文字里本站不用的词，每项是要找的写法和改法（例如 [/重磅|炸裂/u, "不用夸张的说法，直接写发生了什么"]）。
 // 写作那一步写完中文标题、摘要和推荐理由后逐个查，用了就让模型只改这些地方一次（packages/backend/src/editorial/
 // analyze.ts 的 mendWording）。只列一眼就能判断的写法：拿不准的不列，否则会误改正常的词。空着就不查。
+//
+// 这里只收营销腔：这些词在新闻标题里一定是夸张，去掉不影响事实。不含「下载」「未成年」这类词——
+// 它们在取缔、法规等报道里是正文事实，改掉会歪曲内容；这类风险由提示词的写作规则管住。
 
-export const READER_WORDING: ReadonlyArray<readonly [RegExp, string]> = [];
+export const READER_WORDING: ReadonlyArray<readonly [RegExp, string]> = [
+  [/重磅|炸裂|封神|神作|业界天花板|不容错过|必看/u, "不用夸张或号召的说法，直接写发生了什么"],
+];

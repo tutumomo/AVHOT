@@ -1,45 +1,38 @@
 
-【AI 领域翻译规则 — 本平台 100% 是 AI/ML/LLM 行业内容，严格遵守】
+【成人影片产业翻译与用词规则 — 本站 100% 是日本 AV 与全球成人影片产业内容，严格遵守】
 
-1. 歧义默认值：以下词在中文有非 AI 歧义，**一律按 AI 含义翻译**：
-   - LLM = 大语言模型（绝不译"法学硕士"/"Master of Laws"）
-   - Token / tokens = 模型 token（保留英文；绝不译"代币"/"令牌"）
-   - Transformer = Transformer 架构（保留英文；不译"变压器"）
-   - Diffusion = 扩散模型（AI 生成，不是物理扩散）
-   - Agent / Agentic = AI 智能体 / 智能体的（不译"代理人"/"中介"）
-   - Alignment = 对齐（AI 安全语境）
-   - Inference = 推理（模型生成）
-   - Reasoning = 推理（注意：与 inference 都译"推理"，必要时用"链式推理"区分 CoT；reasoning model 指 o1/o3/R1 这类思考型模型）
-   - Embedding = 嵌入向量（也可保留英文）
-   - Distillation = 知识蒸馏
-   - Hallucination = 模型幻觉
-   - Fine-tune / Fine-tuning = 微调
-   - Pretrain / Pretraining = 预训练
-   - Context window = 上下文窗口
-   - Prompt = 提示词
-   - Skill / Skills = 技能（Claude 等 Agent 框架的能力包，不译"特长"）
+1. 歧义默认值：以下词在本行业有固定含义，**一律按本行业含义处理**：
+   - AV = アダルトビデオ（成人影片）。保留「AV」，不译成「影音」「视听」
+   - JAV = 日本 AV，保留
+   - 女優 / 男優 = 出演者（业界通称）。正文直接用「女优」「男优」，不要改成「演员」「艺人」
+   - メーカー = 片商 · レーベル = 厂牌 · 専属 = 专属 · 移籍 = 移籍 · 引退 = 引退
+   - 単体（企画単体）= 单体（按单一作品计酬的出演者）；企画もの = 企划作品；シリーズ = 系列
+   - 解禁 = 解禁（首次尝试某题材）
+   - 無修正 / 修正あり = 无修正 / 有修正；モザイク = 马赛克（日本国内的审查处理）
+   - 素人 / 熟女 / 人妻 = 保留原词，不翻译、不解释、不展开
+   - サンプル動画 = 样品影片 · 予告 = 预告 · 発売日 = 发售日 · 配信開始 = 开始配信
+   - アフィリエイト = 联盟行销
+   - AV新法 = 「AV出演被害防止・救济法」（首次写全称并注「AV新法」，之后用简称）
 
-2. 以下专有名词**一律保留英文原文**，不翻译不加中文括注：
-   - AI 公司：OpenAI / Anthropic / Google DeepMind / xAI / Meta AI / Mistral / DeepSeek / Cohere / HuggingFace（HF）/ Runway / ElevenLabs / Suno / Pika / Midjourney / Perplexity
-   - 模型族（举例 + 通用规则）：GPT / Claude / Gemini / Llama / Qwen / Grok / o 系列 / DeepSeek / Mistral / Mixtral / Phi / Sora / Veo / Imagen
-     **规则**：任何大模型族名、产品代号一律保留英文
-   - 模型版本号（举例 + 通用规则）：GPT-5 / Claude 4.7 / Claude Sonnet 4.6 / Llama 4 / Gemini 3 / o3 / o4 / DeepSeek-V4 / Qwen3.7
-     **规则**：版本号一字不改（包括字母数字后缀如 4o / 4.7 / 405B / V4 / R1），绝不"翻译性扩写"（不要把 "405B" 译成 "4050 亿"，不要把 "V4" 译成 "第 4 代"）
-   - 技术缩写（举例 + 通用规则）：LLM / RAG / RLHF / DPO / LoRA / QLoRA / PEFT / MoE / CoT / ReAct / KV cache / SOTA / AGI / MCP / ADK / NPU / GPU / TPU
-     **规则**：任何 2-5 字母的全大写缩写，默认按 AI/ML 含义保留英文
-   - 评测基准（举例 + 通用规则）：MMLU / GPQA / HumanEval / SWE-bench / SWE-bench Verified / AIME / HLE / ARC-AGI / ARC-AGI 2 / MT-Bench / Chatbot Arena / Aider Polyglot / LiveCodeBench
-     **规则**：以 -bench / -eval 结尾或全大写的评测名一律保留英文
-   - AI 工具/产品：Cursor / Copilot / Codex / Aider / Devin / Cline / Claude Code / Windsurf / Zed / v0 / Bolt / Lovable / Replit Agent
-   - Agent 框架：LangChain / LangGraph / LlamaIndex / CrewAI / AutoGen / Pydantic AI / Vercel AI SDK / DSPy
-   - 推理/部署：Ollama / vLLM / SGLang / TensorRT / Triton / CUDA / ROCm
-   - 通用技术：API / SDK / CLI / IDE / SaaS / CDN / SSO / OAuth / JWT / WebSocket / SSE / gRPC
+2. 以下专有名词**一律保留原文**，不翻译、不加中文括注：
+   - 片商与厂牌：SOD / S1 / MOODYZ / IdeaPocket / Madonna / PRESTIGE / FALENO / KMP / Attackers / Wanz Factory / PREMIUM / Dogma / Honnaka / 溜池ゴロー / TMA / DAS
+     **规则**：任何片商、厂牌、系列名一律保留原文写法
+   - 平台与通路：FANZA / DMM / MGS動画 / DUGA / Adult Empire / Pornhub / OnlyFans / ManyVids / Vixen / Brazzers / Adult Time
+   - 奖项与机构：FANZA ADULT AWARDS / スカパー!アダルト放送大賞 / AV OPEN / AVN Awards / XBIZ Awards / IPPA / Free Speech Coalition / ぱっぷす
+   - 作品番号：SSIS-123 / MIDE-999 / STARS-456 这类番号**一字不改**，包括字母、数字与连字符
+   - 出演者姓名：**保留日文原文写法**（例：三上悠亜、深田えいみ），不音译成中文，不加中文括注；英文名保留英文
+   - 规格与技术：VR / 4K / 8K / BD / DVD / UHD / HDR / 配信 / ストリーミング
 
-3. 中国厂商**优先用官方中文品牌名**（首次出现可双标"千问（Qwen3）"，后续选一种保持一致）：
-   - 千问（Qwen）/ 文心一言 / 智谱（GLM）/ 月之暗面（Kimi）/ 深度求索（DeepSeek）/ 阶跃星辰（Step）/ 零一万物（Yi）/ 百川 / 豆包（字节）/ 混元（腾讯）/ 可灵（Kling，快手）/ 即梦（Jimeng，字节）/ MiniMax（不译）/ 美团 LongCat / 昆仑万维 Skywork / 面壁 MiniCPM / 华为昇腾 / 寒武纪
+3. 露骨内容的处理（硬规则，优先级高于通顺）：
+   - 作品标题里的题材词（日文）可以原样保留，但**不翻译成中文、不在摘要里展开描述**
+   - 性行为、身体部位、体液、体位的任何具体描写都不写进标题、摘要和看点
+   - 不写任何取得方式：下载、磁力、BT、种子、网盘、免费看、破解一律不出现；只写官方渠道（购买、租借、订阅、官方配信）
+   - 不对出演者的外貌、身材、年龄作评价；不使用「未成年」「幼」「萝莉」这类表达
+   - 涉及未成年、未经同意的私密影像或人身安全的指控，只写已公开的官方事实与处置进展，不复述指控细节
 
-4. 代码 / 命令 / URL / 数字单位 **一字不改**保留：
-   - 反引号代码 `code` 不翻译
-   - 命令如 /code-review、pip install、npm run 不译（不要译"代码审查"）
-   - URL 原样
-   - 数字+单位：8k context / 175B params / 3.5x speedup / $3 per M tokens / 99.9%
-   - 金额、参数量、比例、区间必须保留原文的阿拉伯数字和单位；不要把 $10B-$100B 改写成“数百亿至数千亿美元”等中文数量词
+4. 数字、日期与单位**照原文**，不改写：
+   - 价格保留原币种与数字（3300 円 / ¥3,300 / $19.99 / NT$350），**不换算成人民币**
+   - 日期照原文写法（2026-11-01 或「11 月 1 日」）；相对时间（本周 / 上月 / 近日）照抄，不补全年份
+   - 分辨率、时长、数量、折扣比例、地区名照原文
+
+5. 代码 / URL / 番号 / HTML 标签**一字不改**保留。

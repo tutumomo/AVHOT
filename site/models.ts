@@ -54,6 +54,16 @@ export const PRESETS: Record<string, ModelPreset> = {
     service: "dashscope", model: "qwen3-vl-flash", baseUrlEnv: "DASHSCOPE_BASE_URL", apiKeyEnv: "DASHSCOPE_API_KEY",
     extra: { enable_thinking: false }, jsonMode: false, vision: true,
   },
+  // MiniMax（基地台 https://api.minimaxi.chat/v1）。M 系列会先想再答，给推理留出输出额度；
+  // 它的 OpenAI 兼容接口不一定接受 response_format，因此 jsonMode 关掉，由提示词要求纯 JSON。
+  "minimax-m3": {
+    service: "minimax", model: "MiniMax-M3", baseUrlEnv: "MINIMAX_BASE_URL", apiKeyEnv: "MINIMAX_API_KEY",
+    reasoningTokens: 4000, jsonMode: false,
+  },
+  "minimax-m2.7-highspeed": {
+    service: "minimax", model: "MiniMax-M2.7-highspeed", baseUrlEnv: "MINIMAX_BASE_URL", apiKeyEnv: "MINIMAX_API_KEY",
+    reasoningTokens: 4000, jsonMode: false,
+  },
 };
 
 /**
