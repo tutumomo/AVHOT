@@ -2,7 +2,9 @@
 // it has an entry for: here for its addresses (module.ts), in server.ts for its backend, in web.ts for its
 // pages' parts. Each list keeps the order its entries appear in on the site.
 import { ageGate } from "@aihot/age-gate";
+import { fanza } from "@aihot/fanza";
 import type { ModuleDeclaration } from "@aihot/contracts/modules";
 
-/** age-gate 没有自己的页面或接口，行为全在 web.tsx；列在这里是为了让“本站跑了哪些模块”有一份完整清单。 */
-export const MODULES: readonly ModuleDeclaration[] = [ageGate];
+/** age-gate 沒有自己的頁面或介面，行為全在 web.tsx；fanza 沒有頁面，行為全在 server.ts 的排程。
+ *  列在這裡是為了讓「本站跑了哪些模組」有一份完整清單。 */
+export const MODULES: readonly ModuleDeclaration[] = [ageGate, fanza];

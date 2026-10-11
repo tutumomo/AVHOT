@@ -42,10 +42,10 @@ export function Sidebar({ changelogVersion }: { changelogVersion: string | null 
   const dot = useChangelogDot(changelogVersion);
   return (
     <aside className="sticky top-0 hidden h-dvh w-[180px] shrink-0 flex-col border-r border-line bg-sidebar px-3 pb-3.5 pt-6 lg:flex">
-      <Link to="/" className="mb-4 flex h-[50px] items-center px-1 text-ink" aria-label={`${SITE.name} 首页`}>
+      <Link to="/" className="mb-4 flex h-[50px] items-center px-1 text-ink" aria-label={`${SITE.name} 首頁`}>
         <Wordmark size={26} />
       </Link>
-      <nav className="scrollbar-thin -mx-1 flex-1 overflow-y-auto px-1" aria-label="主导航">
+      <nav className="scrollbar-thin -mx-1 flex-1 overflow-y-auto px-1" aria-label="主導航">
         {sidebar().map((section) => (
           <div key={section.title}>
             <div className="px-2.5 pb-1 pt-3.5 text-[11px] text-ink-4">{section.title}</div>
@@ -66,7 +66,7 @@ export function Sidebar({ changelogVersion }: { changelogVersion: string | null 
             className="mx-1 flex h-[34px] items-center justify-center gap-1.5 rounded-full border border-line text-[12.5px] text-ink-3 transition-colors hover:bg-bg-sunk hover:text-ink"
           >
             <IconGithub size={14} />
-            GitHub 开源
+            GitHub 開源
           </a>
         )}
         <ThemeSwitch className="mx-1" />

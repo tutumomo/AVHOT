@@ -30,7 +30,7 @@ const sourceId = (i: number) => `${t}-${i}`;
 const imageUrl = (i: number) => inputs[i]!.avatar ? `https://example.org/${t}/${i}.png` : null;
 after(closeDb);
 
-test('faces are 精选组 sources by tier (T1, T1.5, T2), at most 6; 氛围组 only counts in +N', async () => {
+test('faces are 精選組 sources by tier (T1, T1.5, T2), at most 6; 氛圍組 only counts in +N', async () => {
   for (const [i, person] of inputs.entries()) {
     await sql`INSERT INTO sources (id,name,kind,tier,participation_mode,icon_url,next_fetch_at)
       VALUES (${sourceId(i)},${name(i)},'rss',${person.tier},${person.kind === 'editorial' ? 'editorial' : 'hot_signal'},${imageUrl(i)},'2100-01-01')`;

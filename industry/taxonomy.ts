@@ -1,82 +1,82 @@
-// 这个行业的分类体系：类别、标签词表、公司（主体）名录，以及防止张冠李戴的身份词典。
-// 模型按这里的词表打标签，主题页（topics.json）按标签归类，筛选栏按类别分组。
-// 换行业时：类别的 key 会出现在网址里（/all?category=…），上线后就不要再改；标签和名录可以随时增减。
+// 這個行業的分類體系：類別、標籤詞表、公司（主體）名錄，以及防止張冠李戴的身份詞典。
+// 模型按這裡的詞表打標籤，主題頁（topics.json）按標籤歸類，篩選欄按類別分組。
+// 換行業時：類別的 key 會出現在網址裡（/all?category=…），上線後就不要再改；標籤和名錄可以隨時增減。
 
 /**
- * 网页上的类别（筛选栏、卡片角标、RSS 分类订阅）。key 是网址和接口里的身份，上线后不要改。
- * section 是日报里的分节标题（几个类别可以共用一节，按这里的顺序排）；guide 告诉结构抽取模型这一类收什么、
- * 和相邻类别的边界在哪（总的归类原则写在 prompts/structure.md 里）。
- * commentary 标出评论类（访谈、观点、专题）：日报写过的事又有评论类的后续报道，只占一行快讯（报道它的信源够多时除外）。
- * 没归上类的资料在日报里放进第一个 key 为 industry 的类别所在的节（没有就放最后一节）。
- * feedLabel 是分类 RSS 标题里的名字（不写就用 label）。公开接口、RSS 和 MCP 里要把一类并进另一类发布，写在站点设置里（site/site.ts 的 PUBLIC_CATEGORIES）。
+ * 網頁上的類別（篩選欄、卡片角標、RSS 分類訂閱）。key 是網址和介面裡的身份，上線後不要改。
+ * section 是日報裡的分節標題（幾個類別可以共用一節，按這裡的順序排）；guide 告訴結構抽取模型這一類收什麼、
+ * 和相鄰類別的邊界在哪（總的歸類原則寫在 prompts/structure.md 裡）。
+ * commentary 標出評論類（訪談、觀點、專題）：日報寫過的事又有評論類的後續報道，只佔一行快訊（報道它的信源夠多時除外）。
+ * 沒歸上類的資料在日報裡放進第一個 key 為 industry 的類別所在的節（沒有就放最後一節）。
+ * feedLabel 是分類 RSS 標題裡的名字（不寫就用 label）。公開介面、RSS 和 MCP 裡要把一類並進另一類釋出，寫在站點設定裡（site/site.ts 的 PUBLIC_CATEGORIES）。
  */
 export const CATEGORIES = [
-  { key: "new-releases", label: "新作", feedLabel: "AV 新作", section: "新作发售", guide: "新作与新片的发售情报：发售日、片名、系列、出演阵容、样品与预告、规格（VR、4K、串流先行、实体盘）与定价。厂商同时公布多部同批新作属于这一类，多个作品各自成条。判边界：作品本身的发售归这里；厂牌、体制或经营层面的变化归片商；平台自己的价格、政策与上架机制归平台。" },
-  { key: "studios", label: "片商", feedLabel: "片商动态", section: "片商与品牌", guide: "片商与品牌的动向：新厂牌成立、厂牌改组或收摊、制作体制与专属契约、官方声明与更正、与通路或平台的分润谈判。判边界：单一作品的发售归新作；公司层面的并购、投资与人事归产业；出演者个人的移籍归出演者。" },
-  { key: "performers", label: "出演者", feedLabel: "出演者动态", section: "出演者", guide: "出演者的个人动态：出道、引退、移籍、更名、专属与事务所异动、获奖、健康与休息声明、跨领域活动与个人品牌。判边界：所属片商的作品发售归新作；事务所本身的经营变化归产业；涉及权利或人身安全的制度性事件归政策法规。涉及未成年或非自愿的任何指控，只按已公开的事实与官方处置进展记录，不做推断。" },
-  { key: "platforms", label: "平台", feedLabel: "平台与通路", section: "平台与通路", guide: "平台与通路：FANZA、MGS、DUGA 等官方商店与串流服务的政策变化、价格与订阅方案、地区与付款限制、上架与下架机制、搜索与推荐规则、官方 API 与联盟制度的调整。判边界：平台自己做的事归这里；片商在平台上的新作上架归新作；平台涉及的著作权诉讼归产业。" },
-  { key: "industry", label: "产业", feedLabel: "产业动态", section: "产业动态", guide: "产业经营：公司设立与并购、投资与估值、财报与销售数据、人事与组织、与其他产业的合作、通路谈判、著作权与盗版诉讼、展会与商展的商业面。判边界：作品发售归新作；法规与主管机关的动作归政策法规；产业评论与观察归文化与观点。" },
-  { key: "policy", label: "政策", feedLabel: "政策与权益", section: "政策与权益", guide: "法规、主管机关与业界规范：AV出演被害防止・救济法（AV新法）与相关修法、审查与伦理规范、行政指导、出演者人权与劳动条件、同意程序、海外市场的年龄验证与合规要求、业界自律组织的规则。判边界：具体公司被处分或起诉的经过归产业；对制度的讨论与评论归文化与观点。" },
-  { key: "awards", label: "奖项", feedLabel: "奖项与榜单", section: "奖项与榜单", guide: "奖项、榜单与票选：FANZA ADULT AWARDS、スカパー!アダルト放送大赏、AV OPEN、AVN／XBIZ Awards 等入围与得奖名单、年度榜单与销售排行、票选活动的规则与结果。判边界：作品本身的发售归新作；得奖者个人的后续动向归出演者；活动的商业合作归产业。" },
-  { key: "culture", label: "观点", section: "观点与文化", guide: "评论、访谈与产业观察：对产业现象的分析与批评、从业者访谈、纪录片与专题报道、社会与文化层面的讨论、历史回顾。判边界：报道新发生的事实归对应类别；这里的重点是作者的解释与判断。", commentary: true },
+  { key: "new-releases", label: "新作", feedLabel: "AV 新作", section: "新作發售", guide: "新作與新片的發售情報：發售日、片名、系列、出演陣容、樣品與預告、規格（VR、4K、串流先行、實體盤）與定價。廠商同時公佈多部同批新作屬於這一類，多個作品各自成條。判邊界：作品本身的發售歸這裡；廠牌、體制或經營層面的變化歸片商；平臺自己的價格、政策與上架機制歸平臺。" },
+  { key: "studios", label: "片商", feedLabel: "片商動態", section: "片商與品牌", guide: "片商與品牌的動向：新廠牌成立、廠牌改組或收攤、製作體制與專屬契約、官方宣告與更正、與通路或平臺的分潤談判。判邊界：單一作品的發售歸新作；公司層面的併購、投資與人事歸產業；出演者個人的移籍歸出演者。" },
+  { key: "performers", label: "出演者", feedLabel: "出演者動態", section: "出演者", guide: "出演者的個人動態：出道、引退、移籍、更名、專屬與事務所異動、獲獎、健康與休息宣告、跨領域活動與個人品牌。判邊界：所屬片商的作品發售歸新作；事務所本身的經營變化歸產業；涉及權利或人身安全的制度性事件歸政策法規。涉及未成年或非自願的任何指控，只按已公開的事實與官方處置進展記錄，不做推斷。" },
+  { key: "platforms", label: "平臺", feedLabel: "平臺與通路", section: "平臺與通路", guide: "平臺與通路：FANZA、MGS、DUGA 等官方商店與串流服務的政策變化、價格與訂閱方案、地區與付款限制、上架與下架機制、搜尋與推薦規則、官方 API 與聯盟制度的調整。判邊界：平臺自己做的事歸這裡；片商在平臺上的新作上架歸新作；平臺涉及的著作權訴訟歸產業。" },
+  { key: "industry", label: "產業", feedLabel: "產業動態", section: "產業動態", guide: "產業經營：公司設立與併購、投資與估值、財報與銷售資料、人事與組織、與其他產業的合作、通路談判、著作權與盜版訴訟、展會與商展的商業面。判邊界：作品發售歸新作；法規與主管機關的動作歸政策法規；產業評論與觀察歸文化與觀點。" },
+  { key: "policy", label: "政策", feedLabel: "政策與權益", section: "政策與權益", guide: "法規、主管機關與業界規範：AV出演被害防止・救濟法（AV新法）與相關修法、審查與倫理規範、行政指導、出演者人權與勞動條件、同意程式、海外市場的年齡驗證與合規要求、業界自律組織的規則。判邊界：具體公司被處分或起訴的經過歸產業；對制度的討論與評論歸文化與觀點。" },
+  { key: "awards", label: "獎項", feedLabel: "獎項與榜單", section: "獎項與榜單", guide: "獎項、榜單與票選：FANZA ADULT AWARDS、スカパー!アダルト放送大賞、AV OPEN、AVN／XBIZ Awards 等入圍與得獎名單、年度榜單與銷售排行、票選活動的規則與結果。判邊界：作品本身的發售歸新作；得獎者個人的後續動向歸出演者；活動的商業合作歸產業。" },
+  { key: "culture", label: "觀點", section: "觀點與文化", guide: "評論、訪談與產業觀察：對產業現象的分析與批評、從業者訪談、紀錄片與專題報道、社會與文化層面的討論、歷史回顧。判邊界：報道新發生的事實歸對應類別；這裡的重點是作者的解釋與判斷。", commentary: true },
 ] as const satisfies ReadonlyArray<{ key: string; label: string; feedLabel?: string; section: string; guide: string; commentary?: true }>;
 
 /**
- * 这个行业最受关注的一类发布（AV 行业是新作）：日报报头的“N 部新作”、改分类后修订已出的报告都按它数。
- * category 是类别，tag 是标签，两者都对上才算；unit 接在数字后面。
- * 没有这样一类的行业设成 null，报头就不显示这个数。
+ * 這個行業最受關注的一類釋出（AV 行業是新作）：日報報頭的“N 部新作”、改分類後修訂已出的報告都按它數。
+ * category 是類別，tag 是標籤，兩者都對上才算；unit 接在數字後面。
+ * 沒有這樣一類的行業設成 null，報頭就不顯示這個數。
  */
-export const RELEASE: { category: string; tag: string; unit: string } | null = { category: "new-releases", tag: "新作情报", unit: "部新作" };
+export const RELEASE: { category: string; tag: string; unit: string } | null = { category: "new-releases", tag: "新作情報", unit: "部新作" };
 
-/** 周报月报的总述可以直接写、不必在报道里找到出处的行业通用词（小写）。站名会自动算进去。 */
+/** 週報月報的總述可以直接寫、不必在報道里找到出處的行業通用詞（小寫）。站名會自動算進去。 */
 export const PLAIN_TERMS: readonly string[] = ["av", "jav", "vr", "dvd", "bd", "4k", "8k", "hd", "sns", "18禁"];
 
 /**
- * 内容理解一步给每篇资料判的“内容类型”（写在 prompts/content-understanding.md 里，改了类型要同步改那份提示词）。
- * 评分提示词（prompts/selection-score.md）按类型给五个维度不同的权重。
+ * 內容理解一步給每篇資料判的“內容型別”（寫在 prompts/content-understanding.md 裡，改了型別要同步改那份提示詞）。
+ * 評分提示詞（prompts/selection-score.md）按型別給五個維度不同的權重。
  */
 export const ITEM_TYPES = ["new_release", "platform_update", "performer_news", "award_result", "industry_event", "opinion_analysis", "explainer"] as const;
 
-// ── 标签词表 ────────────────────────────────────────────────────────────────────────────
+// ── 標籤詞表 ────────────────────────────────────────────────────────────────────────────
 
-/** 每篇资料的第一个标签必须是这些“分类标签”之一。最后一项是模型没给出分类时的兜底。 */
+/** 每篇資料的第一個標籤必須是這些“分類標籤”之一。最後一項是模型沒給出分類時的兜底。 */
 export const CATEGORY_TAGS = [
-  "新作情报", "片商动态", "出演者", "平台/通路", "产业经营", "政策/法规", "奖项/榜单", "产业观点", "盗版/取缔", "活动/展会", "其他",
+  "新作情報", "片商動態", "出演者", "平臺/通路", "產業經營", "政策/法規", "獎項/榜單", "產業觀點", "盜版/取締", "活動/展會", "其他",
 ] as const;
 
-/** 可选的主题标签：题材与产业面向。 */
+/** 可選的主題標籤：題材與產業面向。 */
 export const TOPIC_TAGS = [
-  "VR", "企划单体", "系列作品", "素人", "熟女", "人妻", "剧情长篇", "偶像写真", "欧美", "亚洲其他", "男同向", "女同向", "动画/二次元",
-  "出道", "引退", "移籍", "事务所", "导演/制作", "串流/订阅", "出演被害防止法", "人权/劳动",
+  "VR", "企劃單體", "系列作品", "素人", "熟女", "人妻", "劇情長篇", "偶像寫真", "歐美", "亞洲其他", "男同向", "女同向", "動畫/二次元",
+  "出道", "引退", "移籍", "事務所", "導演/製作", "串流/訂閱", "出演被害防止法", "人權/勞動",
 ] as const;
 
-/** 可选的实体标签（片商、平台、业界机构）。 */
+/** 可選的實體標籤（片商、平臺、業界機構）。 */
 export const ENTITY_TAGS = ["SOD", "S1", "MOODYZ", "IdeaPocket", "Madonna", "PRESTIGE", "FALENO", "KMP", "FANZA", "MGS", "DUGA", "AVN", "XBIZ", "IPPA"] as const;
 
-/** 模型常写的近义词，统一成词表里的写法。值必须落在上面的三个词表里。 */
+/** 模型常寫的近義詞，統一成詞表裡的寫法。值必須落在上面的三個詞表裡。 */
 export const TAG_SYNONYMS: Readonly<Record<string, string>> = {
-  新作: "新作情报", 发售: "新作情报", 上市: "新作情报", 新片: "新作情报", 作品: "新作情报", 发布: "新作情报",
-  厂商: "片商动态", 片商: "片商动态", 厂牌: "片商动态", 品牌: "片商动态", 制作公司: "片商动态",
-  女优: "出演者", 男优: "出演者", 演员: "出演者", 优优: "出演者",
-  平台: "平台/通路", 串流: "平台/通路", 订阅: "平台/通路", 通路: "平台/通路", 商店: "平台/通路",
-  公司: "产业经营", 融资: "产业经营", 收购: "产业经营", 并购: "产业经营", 投资: "产业经营", 人事: "产业经营", 合作: "产业经营", 财报: "产业经营",
-  法规: "政策/法规", 监管: "政策/法规", 法律: "政策/法规", 政策: "政策/法规", av新法: "政策/法规", 伦理: "政策/法规", 人权: "政策/法规",
-  奖: "奖项/榜单", 奖项: "奖项/榜单", 榜单: "奖项/榜单", 排名: "奖项/榜单", 票选: "奖项/榜单",
-  评论: "产业观点", 观点: "产业观点", 观察: "产业观点", 访谈: "产业观点", 专题: "产业观点", 文化: "产业观点",
-  盗版: "盗版/取缔", 取缔: "盗版/取缔", 侵权: "盗版/取缔", 磁力: "盗版/取缔", 侵权诉讼: "盗版/取缔",
-  题材: "其他", 类型: "其他", 体裁: "其他",
-  展会: "活动/展会", 活动: "活动/展会", 颁奖: "活动/展会",
+  新作: "新作情報", 發售: "新作情報", 上市: "新作情報", 新片: "新作情報", 作品: "新作情報", 釋出: "新作情報",
+  廠商: "片商動態", 片商: "片商動態", 廠牌: "片商動態", 品牌: "片商動態", 製作公司: "片商動態",
+  女優: "出演者", 男優: "出演者", 演員: "出演者", 優優: "出演者",
+  平臺: "平臺/通路", 串流: "平臺/通路", 訂閱: "平臺/通路", 通路: "平臺/通路", 商店: "平臺/通路",
+  公司: "產業經營", 融資: "產業經營", 收購: "產業經營", 併購: "產業經營", 投資: "產業經營", 人事: "產業經營", 合作: "產業經營", 財報: "產業經營",
+  法規: "政策/法規", 監管: "政策/法規", 法律: "政策/法規", 政策: "政策/法規", av新法: "政策/法規", 倫理: "政策/法規", 人權: "政策/法規",
+  獎: "獎項/榜單", 獎項: "獎項/榜單", 榜單: "獎項/榜單", 排名: "獎項/榜單", 票選: "獎項/榜單",
+  評論: "產業觀點", 觀點: "產業觀點", 觀察: "產業觀點", 訪談: "產業觀點", 專題: "產業觀點", 文化: "產業觀點",
+  盜版: "盜版/取締", 取締: "盜版/取締", 侵權: "盜版/取締", 磁力: "盜版/取締", 侵權訴訟: "盜版/取締",
+  題材: "其他", 型別: "其他", 體裁: "其他",
+  展會: "活動/展會", 活動: "活動/展會", 頒獎: "活動/展會",
 };
 
-// ── 公司与主体 ──────────────────────────────────────────────────────────────────────────
+// ── 公司與主體 ──────────────────────────────────────────────────────────────────────────
 
 /**
- * 公司主题：id → 显示名、卡片上显示的标签（null 表示只用 entity:<id> 归类）、别名。
- * aliases 给结构抽取模型看；otherNames 是公司自己的其他称呼（官方账号名、子品牌），
- * 把事实的主体对到发布方时也认它们。片商与平台的口径按运营方归属（例：S1、MOODYZ 同属北都）。
+ * 公司主題：id → 顯示名、卡片上顯示的標籤（null 表示只用 entity:<id> 歸類）、別名。
+ * aliases 給結構抽取模型看；otherNames 是公司自己的其他稱呼（官方賬號名、子品牌），
+ * 把事實的主體對到釋出方時也認它們。片商與平臺的口徑按運營方歸屬（例：S1、MOODYZ 同屬北都）。
  */
 export const ENTITIES: Record<string, { name: string; displayTag: string | null; aliases: string[]; otherNames?: string[] }> = {
-  // 日本主要片商与集团
+  // 日本主要片商與集團
   sod: { name: "SOD", displayTag: "SOD", aliases: ["SOD", "Soft On Demand", "SODクリエイト"], otherNames: ["SOD Create", "SOD STAR", "SOD女子社員"] },
   hokuto: { name: "北都", displayTag: null, aliases: ["北都", "Hokuto"], otherNames: ["CA", "Will"] },
   s1: { name: "S1", displayTag: "S1", aliases: ["S1", "S1 NO.1 STYLE", "エスワン"], otherNames: ["S1 No.1 Style"] },
@@ -94,9 +94,9 @@ export const ENTITIES: Record<string, { name: string; displayTag: string | null;
   tameikegoro: { name: "溜池ゴロー", displayTag: null, aliases: ["溜池ゴロー", "Tameike Goro"] },
   tma: { name: "TMA", displayTag: null, aliases: ["TMA"] },
   das: { name: "DAS", displayTag: null, aliases: ["DAS", "ダスッ"] },
-  // 平台与通路
-  fanza: { name: "FANZA", displayTag: "FANZA", aliases: ["FANZA", "DMM", "DMM.com"], otherNames: ["FANZA動画", "FANZA TV", "DMMアダルト"] },
-  mgs: { name: "MGS動画", displayTag: null, aliases: ["MGS", "MGS動画", "MGStage"] },
+  // 平臺與通路
+  fanza: { name: "FANZA", displayTag: "FANZA", aliases: ["FANZA", "DMM", "DMM.com"], otherNames: ["FANZA動畫", "FANZA TV", "DMMアダルト"] },
+  mgs: { name: "MGS動畫", displayTag: null, aliases: ["MGS", "MGS動畫", "MGStage"] },
   duga: { name: "DUGA", displayTag: null, aliases: ["DUGA"] },
   adultempire: { name: "Adult Empire", displayTag: null, aliases: ["Adult Empire", "adultempire"] },
   pornhub: { name: "Pornhub", displayTag: null, aliases: ["Pornhub"] },
@@ -105,19 +105,19 @@ export const ENTITIES: Record<string, { name: string; displayTag: string | null;
   manyvids: { name: "ManyVids", displayTag: null, aliases: ["ManyVids"] },
   vixen: { name: "Vixen Media Group", displayTag: null, aliases: ["Vixen", "Vixen Media Group"], otherNames: ["Blacked", "Tushy", "Deeper", "Vixen"] },
   adulttime: { name: "Adult Time", displayTag: null, aliases: ["Adult Time", "Gamma Entertainment"] },
-  // 业界机构与媒体
+  // 業界機構與媒體
   ippa: { name: "IPPA（知的財産振興協会）", displayTag: null, aliases: ["IPPA", "知的財産振興協会"] },
   avn: { name: "AVN", displayTag: null, aliases: ["AVN", "Adult Video News"] },
   xbiz: { name: "XBIZ", displayTag: null, aliases: ["XBIZ"] },
   fsc: { name: "Free Speech Coalition", displayTag: null, aliases: ["Free Speech Coalition", "FSC"] },
-  apag: { name: "APAG（出演者工会）", displayTag: null, aliases: ["APAG", "Adult Performance Artists Guild"] },
+  apag: { name: "APAG（出演者工會）", displayTag: null, aliases: ["APAG", "Adult Performance Artists Guild"] },
   tpowers: { name: "ティーパワーズ", displayTag: null, aliases: ["ティーパワーズ", "T-Powers", "T-POWERS"] },
   paps: { name: "ぱっぷす（PAPS）", displayTag: null, aliases: ["ぱっぷす", "PAPS"] },
 };
 
 /**
- * 身份词典：摘要和标题里出现的公司或片商，必须在原文里也出现过，否则退回原标题、丢掉摘要（防止模型张冠李戴）。
- * 行业没有这个问题时可以留空数组。这里只放最容易认错的几家；行业名录在 ENTITIES 里。
+ * 身份詞典：摘要和標題裡出現的公司或片商，必須在原文裡也出現過，否則退回原標題、丟掉摘要（防止模型張冠李戴）。
+ * 行業沒有這個問題時可以留空陣列。這裡只放最容易認錯的幾家；行業名錄在 ENTITIES 裡。
  */
 export const IDENTITY_LEXICON: ReadonlyArray<{ id: string; name: string; patterns: RegExp[] }> = [
   { id: "sod", name: "SOD", patterns: [/\bsod\b/i, /soft\s?on\s?demand/i, /SODクリエイト/] },
@@ -132,7 +132,7 @@ export const IDENTITY_LEXICON: ReadonlyArray<{ id: string; name: string; pattern
   { id: "wanz", name: "Wanz Factory", patterns: [/wanz/i, /ワンズファクトリー/] },
   { id: "hokuto", name: "北都", patterns: [/北都/, /\bhokuto\b/i] },
   { id: "fanza", name: "FANZA", patterns: [/fanza/i, /\bdmm\b/i, /DMM\.com/i] },
-  { id: "mgs", name: "MGS動画", patterns: [/\bmgs\b/i, /mgstage/i, /MGS動画/] },
+  { id: "mgs", name: "MGS動畫", patterns: [/\bmgs\b/i, /mgstage/i, /MGS動畫/] },
   { id: "duga", name: "DUGA", patterns: [/\bduga\b/i] },
   { id: "pornhub", name: "Pornhub", patterns: [/pornhub/i] },
   { id: "onlyfans", name: "OnlyFans", patterns: [/onlyfans/i] },
@@ -146,8 +146,8 @@ export const IDENTITY_LEXICON: ReadonlyArray<{ id: string; name: string; pattern
 ];
 
 /**
- * 这些域名上的文章，发布方就是对应的公司（只放已经核对过的官方域名；托管平台不算）。
- * 加新信源时先确认官方域名，再写到这里；填错会把别人的文章记到这家名下。
+ * 這些域名上的文章，釋出方就是對應的公司（只放已經核對過的官方域名；託管平臺不算）。
+ * 加新信源時先確認官方域名，再寫到這裡；填錯會把別人的文章記到這家名下。
  */
 export const PUBLISHER_DOMAINS: ReadonlyArray<{ entityId: string; domains: readonly string[] }> = [
   { entityId: "fanza", domains: ["dmm.co.jp", "fanza.jp"] },
@@ -160,7 +160,7 @@ export const PUBLISHER_DOMAINS: ReadonlyArray<{ entityId: string; domains: reado
   { entityId: "adultempire", domains: ["adultempire.com"] },
 ];
 
-/** 原文里的这些写法也算提到了对应公司。 */
+/** 原文裡的這些寫法也算提到了對應公司。 */
 export const IDENTITY_CONTEXT_ALIASES: ReadonlyArray<{ entityId: string; pattern: RegExp }> = [
   { entityId: "fanza", pattern: /@FANZA_\w+/i },
   { entityId: "sod", pattern: /@SOD_create\b/i },

@@ -20,8 +20,8 @@ const provider = await stub((_hit, req) => {
   const content = step === "prefilter" ? { label: "UNKNOWN", reason: "No standalone text evidence" }
     : step === "score" ? { attentionScore: req.body.includes("high-score") ? SELECTING_SCORE : 12 }
     : step === "structure" ? { category: "platforms", tags: [], subjects: [], scope: "single", fact: null }
-    : step === "understand" ? { itemType: "platform_update", authorRole: "principal", tags: [], editorialJudgment: "平台/通路", titleZh: "实际正文标题", summaryZh: "这是实际正文的中文摘要。" }
-    : "title_zh: 实际正文标题\nbody_zh: 这是实际正文的中文摘要。";
+    : step === "understand" ? { itemType: "platform_update", authorRole: "principal", tags: [], editorialJudgment: "平臺/通路", titleZh: "實際正文標題", summaryZh: "這是實際正文的中文摘要。" }
+    : "title_zh: 實際正文標題\nbody_zh: 這是實際正文的中文摘要。";
   return { choices: [{ message: { content: typeof content === "string" ? content : JSON.stringify(content) } }] };
 });
 pointModels(provider.url);
@@ -70,9 +70,9 @@ test("empty and link-only posts preserve originals without calling either writer
 test("rebuilding an image-only post replaces historical model replies across public outputs and preserves its image and address", async () => {
   const { id, url } = await post("historical-empty", "");
   await sql`INSERT INTO analyses (article_id,input_revision,origin,relevance,title_zh,summary_zh,score,selected)
-    VALUES (${id},1,'model','pass','请补充正文','抱歉，没有推文文字内容可供翻译。',${SELECTING_SCORE},true)`;
+    VALUES (${id},1,'model','pass','請補充正文','抱歉，沒有推文文字內容可供翻譯。',${SELECTING_SCORE},true)`;
   await sql`INSERT INTO translations (article_id,revision,body_text,body_html,complete,origin)
-    VALUES (${id},1,'错误译文','<p>错误译文</p>',true,'model')`;
+    VALUES (${id},1,'錯誤譯文','<p>錯誤譯文</p>',true,'model')`;
   const before = provider.hits();
   await publishArticle(id, released());
   assert.equal(provider.hits(), before, "a projection rebuild buys no model response");
@@ -89,7 +89,7 @@ test("rebuilding an image-only post replaces historical model replies across pub
     const res = await app.inject({ method: "GET", url: path });
     assert.equal(res.statusCode, 200, path);
     assert.ok(res.body.includes(url), `${path}: original address survives`);
-    assert.ok(!/请补充正文|错误译文|没有推文文字内容/.test(res.body), `${path}: no model reply survives`);
+    assert.ok(!/請補充正文|錯誤譯文|沒有推文文字內容/.test(res.body), `${path}: no model reply survives`);
     if (path.endsWith("markdown")) {
       assert.ok(res.body.includes("screenshot.png"), "the image survives export");
       assert.match(res.body, /!\[\]\(https?:\/\//, "the downloaded image link works outside the website");
@@ -112,6 +112,6 @@ test("real text containing links and a fetched X Article keep their normal writi
     assert.ok(requests.slice(start).includes("summarize"), `${name}: real material is still translated`);
     await publishArticle(id, released());
     const [p] = await sql`SELECT summary FROM publications WHERE article_id=${id}`;
-    assert.equal(p!.summary, "这是实际正文的中文摘要。");
+    assert.equal(p!.summary, "這是實際正文的中文摘要。");
   }
 });

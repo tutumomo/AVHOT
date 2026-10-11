@@ -13,6 +13,7 @@
     "./brand/*": "./brand/*"
   },
   "dependencies": {
-    "@aihot/age-gate": "*"
+    "@aihot/age-gate": "*",
+    "@aihot/fanza": "*"
   }
 }

@@ -21,7 +21,7 @@ test("topic lists and pool counts share the exact membership predicate", async (
     { title: "Unrelated", original: null, tags: ["entity:s1", "entity:sod"], topics: [] },
     { title: "Unrelated", original: "S1 launches a model", tags: ["entity:s1", "entity:sod"], topics: ["s1"] },
     { title: "Dugan", original: null, tags: ["entity:duga", "entity:sod"], topics: [] },
-    { title: "发布DUGA的新作品", original: null, tags: ["entity:duga", "entity:sod"], topics: ["duga"] },
+    { title: "釋出DUGA的新作品", original: null, tags: ["entity:duga", "entity:sod"], topics: ["duga"] },
     { title: "Unselected", original: null, tags: ["VR", "entity:s1"], topics: ["vr", "s1"], selected: false },
     { title: "Withdrawn", original: null, tags: ["VR", "entity:s1"], topics: ["vr", "s1"], visibility: "withdrawn" },
     { title: "Future", original: null, tags: ["VR", "entity:s1"], topics: ["vr", "s1"], future: true },

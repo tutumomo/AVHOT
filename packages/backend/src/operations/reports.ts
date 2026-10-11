@@ -29,23 +29,23 @@ export async function sourceHealthWeekly(now = Date.now()) {
     sourceHealth(now),
   ]);
   const lines = [
-    `本周收录 ${n(items!.week)} 条（上周 ${n(items!.prev)}，${pct(items!.week, items!.prev)}），其中精选 ${n(items!.selected)} 条`,
-    `在用信源 ${counts!.enabled} 个，本周新增 ${counts!.added} 个；抓取失败 ${counts!.failing} 个，不太稳定 ${counts!.degraded} 个`,
+    `本週收錄 ${n(items!.week)} 條（上週 ${n(items!.prev)}，${pct(items!.week, items!.prev)}），其中精選 ${n(items!.selected)} 條`,
+    `在用信源 ${counts!.enabled} 個，本週新增 ${counts!.added} 個；抓取失敗 ${counts!.failing} 個，不太穩定 ${counts!.degraded} 個`,
   ];
   // The modules' own collectors, a line each.
   for (const m of serverModules()) if (m.sourceHealth) lines.push(...(await m.sourceHealth(now)));
   for (const group of groups) {
-    lines.push("", `${group.name}：${group.sources.length} 个在用信源；本周归属条目 ${n(group.sources.reduce((sum, s) => sum + s.items, 0))} 条；连续失败 ${group.failing.length} 个、反复失败 ${group.unstable.length} 个、7 天无新发现 ${group.silent.length} 个`);
-    if (group.failing.length) lines.push(`抓取失败：${sourceHealthList(group.failing, s => `连续失败 ${s.fail_count} 次${s.last_error ? `（${s.last_error}）` : ""}`, Infinity)}`);
-    if (group.unstable.length) lines.push(`不稳定：${sourceHealthList(group.unstable, s => `失败 ${s.failed}/${s.runs} 次`, Infinity)}`);
-    if (group.silent.length) lines.push(`7 天无新发现（需对照原站，可能只是低频更新）：${sourceHealthList(group.silent, s => `${s.runs} 次抓取`, Infinity)}`);
-    if (group.quality.length) lines.push(`文章质量待核实：${sourceHealthList(group.quality, s => `缺发布时间 ${s.undated} 篇、反复修订 ${s.repeated} 篇`, Infinity)}`);
-    if (group.detailFailures.length) lines.push(`详情补全失败：${sourceHealthList(group.detailFailures, s => `${s.detail_failures} 次`, Infinity)}`);
+    lines.push("", `${group.name}：${group.sources.length} 個在用信源；本週歸屬條目 ${n(group.sources.reduce((sum, s) => sum + s.items, 0))} 條；連續失敗 ${group.failing.length} 個、反覆失敗 ${group.unstable.length} 個、7 天無新發現 ${group.silent.length} 個`);
+    if (group.failing.length) lines.push(`抓取失敗：${sourceHealthList(group.failing, s => `連續失敗 ${s.fail_count} 次${s.last_error ? `（${s.last_error}）` : ""}`, Infinity)}`);
+    if (group.unstable.length) lines.push(`不穩定：${sourceHealthList(group.unstable, s => `失敗 ${s.failed}/${s.runs} 次`, Infinity)}`);
+    if (group.silent.length) lines.push(`7 天無新發現（需對照原站，可能只是低頻更新）：${sourceHealthList(group.silent, s => `${s.runs} 次抓取`, Infinity)}`);
+    if (group.quality.length) lines.push(`文章質量待核實：${sourceHealthList(group.quality, s => `缺釋出時間 ${s.undated} 篇、反覆修訂 ${s.repeated} 篇`, Infinity)}`);
+    if (group.detailFailures.length) lines.push(`詳情補全失敗：${sourceHealthList(group.detailFailures, s => `${s.detail_failures} 次`, Infinity)}`);
   }
   const failing = counts!.failing;
   const silent = groups.reduce((sum, g) => sum + g.silent.length, 0);
   const followUp = counts!.failing > 0 || groups.some(g => g.failing.length || g.unstable.length || g.silent.length || g.quality.length || g.detailFailures.length);
-  lines.push("", followUp ? "需要处理的话，把这条转给 AI；详情在后台“信源”与“运行”页。" : "没有需要处理的信源。");
-  await sendAlert("📊 信源周报", lines);
+  lines.push("", followUp ? "需要處理的話，把這條轉給 AI；詳情在後臺“信源”與“執行”頁。" : "沒有需要處理的信源。");
+  await sendAlert("📊 信源週報", lines);
   return { failing, silent };
 }

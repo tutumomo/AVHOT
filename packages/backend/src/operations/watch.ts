@@ -13,10 +13,10 @@ const WORKER_DOWN: Finding = {
   key: "worker",
   level: "now",
   owner: true,
-  title: "后台处理服务停了，网站不会出现新内容",
-  impact: "新内容的采集、处理、推送和日报全部暂停，网站停在旧内容上",
-  heals: "系统自动重启没有成功",
-  action: "尽快发起一次维护处理",
+  title: "後臺處理服務停了，網站不會出現新內容",
+  impact: "新內容的採集、處理、推送和日報全部暫停，網站停在舊內容上",
+  heals: "系統自動重啟沒有成功",
+  action: "儘快發起一次維護處理",
 };
 
 /**

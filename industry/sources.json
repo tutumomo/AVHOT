@@ -1,6 +1,6 @@
 {
-  "$comment": "示范信源：首次启动时导入（scripts/seed.ts），已存在的不会被覆盖。之后在后台“信源”里新建、修改和暂停。字段说明见 docs/customize.md。全部条目都在 2026-10-11 用浏览器 User-Agent 实测过：只收抓得到、有发布日期的源。不含任何盗版、磁力、网盘或串流索引站。",
-  "$reachability": "从本机（台湾出口）实测：FANZA／DMM 地区封锁（お住まいの地域からご利用になれません），MGS動画、FALENO、PRESTIGE、SOD 全部 403（CloudFront/WAF），KMP 超时。要收这些官方源需要日本出口（EGRESS_PROXY_URL）或改用 DMM Web Service API v3（api.dmm.com 本身可通，需要 api_id 与 affiliate_id）。",
+  "$comment": "示範信源：首次啟動時匯入（scripts/seed.ts），已存在的不會被覆蓋。之後在後臺“信源”裡新建、修改和暫停。欄位說明見 docs/customize.md。全部條目都在 2026-10-11 用瀏覽器 User-Agent 實測過：只收抓得到、有釋出日期的源。不含任何盜版、磁力、網盤或串流索引站。",
+  "$reachability": "從本機（臺灣出口）實測：FANZA／DMM 地區封鎖（お住まいの地域からご利用になれません），MGS動畫、FALENO、PRESTIGE、SOD 全部 403（CloudFront/WAF），KMP 超時。要收這些官方源需要日本出口（EGRESS_PROXY_URL）或改用 DMM Web Service API v3（api.dmm.com 本身可通，需要 api_id 與 affiliate_id）。",
   "sources": [
     {
       "id": "rss-avn-articles",
@@ -14,7 +14,7 @@
       "owner_entity_id": "avn",
       "participation_mode": "editorial",
       "interval_minutes": 60,
-      "tags": ["业界媒体"],
+      "tags": ["業界媒體"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
@@ -30,13 +30,13 @@
       "owner_entity_id": "xbiz",
       "participation_mode": "editorial",
       "interval_minutes": 60,
-      "tags": ["业界媒体"],
+      "tags": ["業界媒體"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
     {
       "id": "rss-xbiz-legal",
-      "name": "XBIZ · Legal（法规）",
+      "name": "XBIZ · Legal（法規）",
       "kind": "rss",
       "config": {
         "feedUrl": "https://www.xbiz.com/rss/legal.xml",
@@ -46,13 +46,13 @@
       "owner_entity_id": "xbiz",
       "participation_mode": "editorial",
       "interval_minutes": 120,
-      "tags": ["业界媒体", "法规"],
+      "tags": ["業界媒體", "法規"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
     {
       "id": "rss-xbiz-movies-stars",
-      "name": "XBIZ · Movies & Stars（作品与出演者）",
+      "name": "XBIZ · Movies & Stars（作品與出演者）",
       "kind": "rss",
       "config": {
         "feedUrl": "https://www.xbiz.com/rss/news/movies-stars.xml",
@@ -62,13 +62,13 @@
       "owner_entity_id": "xbiz",
       "participation_mode": "editorial",
       "interval_minutes": 60,
-      "tags": ["业界媒体", "作品"],
+      "tags": ["業界媒體", "作品"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
     {
       "id": "rss-xbiz-web-tech",
-      "name": "XBIZ · Web & Tech（平台与技术）",
+      "name": "XBIZ · Web & Tech（平臺與技術）",
       "kind": "rss",
       "config": {
         "feedUrl": "https://www.xbiz.com/rss/news/web-tech.xml",
@@ -78,13 +78,13 @@
       "owner_entity_id": "xbiz",
       "participation_mode": "editorial",
       "interval_minutes": 120,
-      "tags": ["业界媒体", "平台"],
+      "tags": ["業界媒體", "平臺"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
     {
       "id": "rss-xbiz-reviews",
-      "name": "XBIZ · Movie Reviews（新作评测）",
+      "name": "XBIZ · Movie Reviews（新作評測）",
       "kind": "rss",
       "config": {
         "feedUrl": "https://www.xbiz.com/rss/movies/reviews.xml",
@@ -94,7 +94,7 @@
       "owner_entity_id": "xbiz",
       "participation_mode": "editorial",
       "interval_minutes": 120,
-      "tags": ["业界媒体", "评测"],
+      "tags": ["業界媒體", "評測"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
@@ -110,13 +110,13 @@
       "owner_entity_id": "xbiz",
       "participation_mode": "editorial",
       "interval_minutes": 180,
-      "tags": ["业界媒体", "VR"],
+      "tags": ["業界媒體", "VR"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
     {
       "id": "rss-xbiz-europe",
-      "name": "XBIZ · Europe（欧洲市场）",
+      "name": "XBIZ · Europe（歐洲市場）",
       "kind": "rss",
       "config": {
         "feedUrl": "https://www.xbiz.com/rss/news/europe.xml",
@@ -126,7 +126,7 @@
       "owner_entity_id": "xbiz",
       "participation_mode": "editorial",
       "interval_minutes": 180,
-      "tags": ["业界媒体", "欧美"],
+      "tags": ["業界媒體", "歐美"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
@@ -142,13 +142,13 @@
       "owner_entity_id": null,
       "participation_mode": "editorial",
       "interval_minutes": 60,
-      "tags": ["业界媒体"],
+      "tags": ["業界媒體"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
     {
       "id": "rss-fsc",
-      "name": "Free Speech Coalition（业界协会）",
+      "name": "Free Speech Coalition（業界協會）",
       "kind": "rss",
       "config": {
         "feedUrl": "https://www.freespeechcoalition.com/blog?format=rss",
@@ -158,13 +158,13 @@
       "owner_entity_id": "fsc",
       "participation_mode": "editorial",
       "interval_minutes": 180,
-      "tags": ["业界机构", "法规"],
+      "tags": ["業界機構", "法規"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
     {
       "id": "rss-apag",
-      "name": "APAG（出演者工会）",
+      "name": "APAG（出演者工會）",
       "kind": "rss",
       "config": {
         "feedUrl": "https://apagunion.com/feed/",
@@ -174,13 +174,13 @@
       "owner_entity_id": "apag",
       "participation_mode": "editorial",
       "interval_minutes": 240,
-      "tags": ["业界机构", "人权"],
+      "tags": ["業界機構", "人權"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
     {
       "id": "rss-avopen-jp",
-      "name": "AV-open.com（日本成人产业观察）",
+      "name": "AV-open.com（日本成人產業觀察）",
       "kind": "rss",
       "config": {
         "feedUrl": "https://av-open.com/feed/",
@@ -190,7 +190,7 @@
       "owner_entity_id": null,
       "participation_mode": "editorial",
       "interval_minutes": 180,
-      "tags": ["日本媒体"],
+      "tags": ["日本媒體"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
@@ -206,7 +206,7 @@
       "owner_entity_id": null,
       "participation_mode": "editorial",
       "interval_minutes": 120,
-      "tags": ["日本媒体"],
+      "tags": ["日本媒體"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
@@ -217,7 +217,7 @@
       "config": {
         "feedUrl": "https://nikkan-spa.jp/feed",
         "ingestNoiseFilter": {
-          "keepIfMatches": ["av女優", "av新法", "アダルト", "セクシー女優", "av出演", "fanza", "dmm", "jav", "成人映画", "成人向け", "ポルノ", "熟女", "人妻", "素人", "avメーカー", "モザイク"]
+          "keepIfMatches": ["av女優", "av新法", "アダルト", "セクシー女優", "av出演", "fanza", "dmm", "jav", "成人映畫", "成人向け", "ポルノ", "熟女", "人妻", "素人", "avメーカー", "モザイク"]
         },
         "_aihot": { "initialBackfillLimit": 6 }
       },
@@ -225,7 +225,7 @@
       "owner_entity_id": null,
       "participation_mode": "editorial",
       "interval_minutes": 120,
-      "tags": ["日本媒体", "需关键词过滤"],
+      "tags": ["日本媒體", "需關鍵詞過濾"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
@@ -236,7 +236,7 @@
       "config": {
         "feedUrl": "https://www.tokyoheadline.com/feed/",
         "ingestNoiseFilter": {
-          "keepIfMatches": ["av女優", "av新法", "アダルト", "セクシー女優", "av出演", "fanza", "dmm", "jav", "成人映画", "成人向け", "ポルノ", "熟女", "人妻", "素人", "avメーカー", "モザイク"]
+          "keepIfMatches": ["av女優", "av新法", "アダルト", "セクシー女優", "av出演", "fanza", "dmm", "jav", "成人映畫", "成人向け", "ポルノ", "熟女", "人妻", "素人", "avメーカー", "モザイク"]
         },
         "_aihot": { "initialBackfillLimit": 6 }
       },
@@ -244,7 +244,7 @@
       "owner_entity_id": null,
       "participation_mode": "editorial",
       "interval_minutes": 180,
-      "tags": ["日本媒体", "需关键词过滤", "奖项"],
+      "tags": ["日本媒體", "需關鍵詞過濾", "獎項"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
@@ -255,7 +255,7 @@
       "config": {
         "feedUrl": "https://www.tokyo-sports.co.jp/list/feed/rss",
         "ingestNoiseFilter": {
-          "keepIfMatches": ["av女優", "av新法", "アダルト", "セクシー女優", "av出演", "fanza", "dmm", "jav", "成人映画", "成人向け", "ポルノ", "熟女", "人妻", "素人", "avメーカー", "モザイク"]
+          "keepIfMatches": ["av女優", "av新法", "アダルト", "セクシー女優", "av出演", "fanza", "dmm", "jav", "成人映畫", "成人向け", "ポルノ", "熟女", "人妻", "素人", "avメーカー", "モザイク"]
         },
         "_aihot": { "initialBackfillLimit": 6 }
       },
@@ -263,7 +263,7 @@
       "owner_entity_id": null,
       "participation_mode": "editorial",
       "interval_minutes": 120,
-      "tags": ["日本媒体", "需关键词过滤"],
+      "tags": ["日本媒體", "需關鍵詞過濾"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
@@ -274,7 +274,7 @@
       "config": {
         "feedUrl": "https://www.dailyshincho.jp/feed",
         "ingestNoiseFilter": {
-          "keepIfMatches": ["av女優", "av新法", "アダルト", "セクシー女優", "av出演", "fanza", "dmm", "jav", "成人映画", "成人向け", "ポルノ", "熟女", "人妻", "素人", "avメーカー", "モザイク"]
+          "keepIfMatches": ["av女優", "av新法", "アダルト", "セクシー女優", "av出演", "fanza", "dmm", "jav", "成人映畫", "成人向け", "ポルノ", "熟女", "人妻", "素人", "avメーカー", "モザイク"]
         },
         "_aihot": { "initialBackfillLimit": 6 }
       },
@@ -282,7 +282,7 @@
       "owner_entity_id": null,
       "participation_mode": "editorial",
       "interval_minutes": 180,
-      "tags": ["日本媒体", "需关键词过滤"],
+      "tags": ["日本媒體", "需關鍵詞過濾"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
@@ -293,7 +293,7 @@
       "config": {
         "feedUrl": "https://www.j-cast.com/index.xml",
         "ingestNoiseFilter": {
-          "keepIfMatches": ["av女優", "av新法", "アダルト", "セクシー女優", "av出演", "fanza", "dmm", "jav", "成人映画", "成人向け", "ポルノ", "熟女", "人妻", "素人", "avメーカー", "モザイク"]
+          "keepIfMatches": ["av女優", "av新法", "アダルト", "セクシー女優", "av出演", "fanza", "dmm", "jav", "成人映畫", "成人向け", "ポルノ", "熟女", "人妻", "素人", "avメーカー", "モザイク"]
         },
         "_aihot": { "initialBackfillLimit": 6 }
       },
@@ -301,7 +301,7 @@
       "owner_entity_id": null,
       "participation_mode": "editorial",
       "interval_minutes": 120,
-      "tags": ["日本媒体", "需关键词过滤"],
+      "tags": ["日本媒體", "需關鍵詞過濾"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
@@ -317,7 +317,7 @@
       "owner_entity_id": "duga",
       "participation_mode": "editorial",
       "interval_minutes": 120,
-      "tags": ["平台", "新作"],
+      "tags": ["平臺", "新作"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     },
@@ -363,7 +363,7 @@
       "owner_entity_id": "tpowers",
       "participation_mode": "editorial",
       "interval_minutes": 180,
-      "tags": ["事务所官方"],
+      "tags": ["事務所官方"],
       "site_fulltext": false,
       "syndicate_fulltext": false
     }

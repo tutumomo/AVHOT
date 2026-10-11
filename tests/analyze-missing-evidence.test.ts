@@ -16,14 +16,14 @@ const provider = await stub((_hit, request) => {
   const output = step === "prefilter" ? { label, reason: "fixture" }
     : step === "score" ? { attentionScore: SELECTING_SCORE }
     : step === "structure" ? { scope: "unknown", category: "model", tags: [], subjects: [], fact: null }
-    : { itemType: "new_release", authorRole: "principal", titleZh: "新作情报", summaryZh: "来源确认模型发布。", bodyZh: "来源确认模型发布。", tags: [], editorialJudgment: "fixture" };
+    : { itemType: "new_release", authorRole: "principal", titleZh: "新作情報", summaryZh: "來源確認模型釋出。", bodyZh: "來源確認模型釋出。", tags: [], editorialJudgment: "fixture" };
   return { choices: [{ message: { content: JSON.stringify(output) } }] };
 });
 pointModels(provider.url);
 after(async () => { await provider.close(); await closeDb(); });
 
 const article = (changes: Partial<AnalyzeInputArticle> = {}): AnalyzeInputArticle => ({
-  id: `missing-${tag()}`, revision: 1, title: "新作情报", url: "https://example.org/news", author: null,
+  id: `missing-${tag()}`, revision: 1, title: "新作情報", url: "https://example.org/news", author: null,
   publishedAt: new Date("2026-10-02T00:00:00Z"), bodyStatus: "unconfirmed", bodyText: null,
   excerpt: null, media: [], xPost: null,
   source: { name: "Fixture", kind: "rss", tier: "T1", firstParty: true }, ...changes,
@@ -48,8 +48,8 @@ test("title-only articles wait for evidence regardless of the prefilter label", 
 
 test("real body, feed excerpt and quoted text still receive both scores and writing", async (t) => {
   label = "PASS";
-  for (const changes of [{ bodyText: "来源确认模型发布。" }, { excerpt: "来源确认模型发布。" },
-    { xPost: { text: "支持", quoted: { text: "来源确认模型发布。" } } }]) await t.test(JSON.stringify(changes), async () => {
+  for (const changes of [{ bodyText: "來源確認模型釋出。" }, { excerpt: "來源確認模型釋出。" },
+    { xPost: { text: "支援", quoted: { text: "來源確認模型釋出。" } } }]) await t.test(JSON.stringify(changes), async () => {
     steps.length = 0;
     const out = normalizeAnalysis(await runFresh(article(changes)));
     assert.equal(steps.filter((step) => step === "score").length, 2);
@@ -79,7 +79,7 @@ test("a later material revision can be scored after the title-only revision wait
   const input = article();
   assert.equal(normalizeAnalysis(await runFresh(input)).relevance, "unknown");
   steps.length = 0;
-  const out = normalizeAnalysis(await runFresh({ ...input, revision: 2, bodyStatus: "ok", bodyText: "来源确认模型发布。" }));
+  const out = normalizeAnalysis(await runFresh({ ...input, revision: 2, bodyStatus: "ok", bodyText: "來源確認模型釋出。" }));
   assert.equal(steps.filter((step) => step === "score").length, 2);
   assert.equal(out.relevance, "pass");
   assert.equal(out.selected, true);

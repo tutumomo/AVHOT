@@ -42,13 +42,13 @@ test("a weekly that froze no summaries shows the articles' public summaries", as
   await sql`INSERT INTO sources (id, name, kind, tier, participation_mode, next_fetch_at) VALUES (${SOURCE}, 'Reports', 'rss', 'T1', 'editorial', '2100-01-01')`;
   const { articleId } = await upsertMaterial({ sourceId: SOURCE, url: `https://example.com/${T}`, title: `R ${T}`, bodyText: "b", bodyHtml: "<p>b</p>", bodyStatus: "ok", via: "fetch", publishedAt: new Date() });
   await sql`INSERT INTO analyses (article_id, input_revision, origin, relevance, category, title_zh, summary_zh, score, selected)
-            VALUES (${articleId}, 1, 'rule', 'pass', 'industry', ${`标题-${T}`}, ${`公开摘要-${T}`}, 80, true)`;
+            VALUES (${articleId}, 1, 'rule', 'pass', 'industry', ${`標題-${T}`}, ${`公開摘要-${T}`}, 80, true)`;
   await publishArticle(articleId, { releasedAt: new Date() });
-  const content = { kind: "weekly", title: `${SITE.name} 周报 · ${WEEK}`, overview: "o", themes: [{ heading: "h", summary: "s", storyRefs: [{ itemId: articleId, title: `标题-${T}`, sourceName: "Old aggregator", sourceId: "old-source", firstParty: false, sourceUrl: "https://example.com" }] }] };
+  const content = { kind: "weekly", title: `${SITE.name} 週報 · ${WEEK}`, overview: "o", themes: [{ heading: "h", summary: "s", storyRefs: [{ itemId: articleId, title: `標題-${T}`, sourceName: "Old aggregator", sourceId: "old-source", firstParty: false, sourceUrl: "https://example.com" }] }] };
   await sql`INSERT INTO reports (kind, key, window_start, window_end, content, generated_at, origin)
             VALUES ('weekly', ${WEEK}, now(), now(), ${sql.json(content as never)}, now(), 'imported')`;
   const report = await loadReport("weekly", WEEK);
-  assert.equal(report?.sections[0]?.items[0]?.summary, `公开摘要-${T}`);
+  assert.equal(report?.sections[0]?.items[0]?.summary, `公開摘要-${T}`);
   assert.equal(report?.sections[0]?.items[0]?.sourceName, "Reports");
   assert.equal(report?.sections[0]?.items[0]?.firstParty, true, "a frozen citation cannot override verified current provenance");
   await sql`UPDATE sources SET tier = 'T1_5', first_party = true WHERE id = ${SOURCE}`;

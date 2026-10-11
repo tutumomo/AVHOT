@@ -2,18 +2,18 @@
   "groups": [
     {
       "key": "company",
-      "name": "片商与平台",
-      "blurb": "按片商、厂牌与平台追踪作品、政策与经营"
+      "name": "片商與平臺",
+      "blurb": "按片商、廠牌與平臺追蹤作品、政策與經營"
     },
     {
       "key": "field",
-      "name": "题材与规格",
-      "blurb": "按题材、类型与规格深挖：VR、熟女、欧美……"
+      "name": "題材與規格",
+      "blurb": "按題材、型別與規格深挖：VR、熟女、歐美……"
     },
     {
       "key": "genre",
-      "name": "产业面向",
-      "blurb": "按内容形态浏览：新作、经营、法规、奖项……"
+      "name": "產業面向",
+      "blurb": "按內容形態瀏覽：新作、經營、法規、獎項……"
     }
   ],
   "topics": [
@@ -23,7 +23,7 @@
       "group": "company",
       "entityId": "s1",
       "aliases": ["エスワン", "S1 NO.1 STYLE"],
-      "definition": "S1 的全部动态：专属阵容、系列新作与发售情报、厂牌自身的调整。"
+      "definition": "S1 的全部動態：專屬陣容、系列新作與發售情報、廠牌自身的調整。"
     },
     {
       "slug": "sod",
@@ -31,7 +31,7 @@
       "group": "company",
       "entityId": "sod",
       "aliases": ["Soft On Demand", "SODクリエイト"],
-      "definition": "SOD（Soft On Demand）集团的作品发布、厂牌体系与经营动态。"
+      "definition": "SOD（Soft On Demand）集團的作品釋出、廠牌體系與經營動態。"
     },
     {
       "slug": "moodyz",
@@ -39,273 +39,273 @@
       "group": "company",
       "entityId": "moodyz",
       "aliases": ["ムーディーズ"],
-      "definition": "MOODYZ 的新作、专属阵容与厂牌动态。"
+      "definition": "MOODYZ 的新作、專屬陣容與廠牌動態。"
     },
     {
       "slug": "ideapocket",
       "name": "IdeaPocket",
       "group": "company",
       "entityId": "ideapocket",
-      "definition": "IdeaPocket 的作品发布、专属与厂牌动态。"
+      "definition": "IdeaPocket 的作品釋出、專屬與廠牌動態。"
     },
     {
       "slug": "madonna",
       "name": "Madonna",
       "group": "company",
       "entityId": "madonna",
-      "definition": "Madonna 的新作与厂牌动态，以熟女与长篇剧情题材为主。"
+      "definition": "Madonna 的新作與廠牌動態，以熟女與長篇劇情題材為主。"
     },
     {
       "slug": "prestige",
       "name": "PRESTIGE",
       "group": "company",
       "entityId": "prestige",
-      "definition": "PRESTIGE 的作品发布、系列体系与厂牌动态。"
+      "definition": "PRESTIGE 的作品釋出、系列體系與廠牌動態。"
     },
     {
       "slug": "faleno",
       "name": "FALENO",
       "group": "company",
       "entityId": "faleno",
-      "definition": "FALENO 的新作、配信策略与厂牌动态。"
+      "definition": "FALENO 的新作、配信策略與廠牌動態。"
     },
     {
       "slug": "kmp",
       "name": "KMP",
       "group": "company",
       "entityId": "kmp",
-      "definition": "KMP（ケイ・エム・プロデュース）的作品与厂牌动态。"
+      "definition": "KMP（ケイ・エム・プロデュース）的作品與廠牌動態。"
     },
     {
       "slug": "hokuto",
       "name": "北都",
       "group": "company",
       "entityId": "hokuto",
-      "definition": "北都集团层面的经营与体制动态：旗下 S1、MOODYZ、IdeaPocket、Madonna 等厂牌的共同安排。"
+      "definition": "北都集團層面的經營與體制動態：旗下 S1、MOODYZ、IdeaPocket、Madonna 等廠牌的共同安排。"
     },
     {
       "slug": "fanza",
       "name": "FANZA",
       "group": "company",
       "entityId": "fanza",
-      "definition": "FANZA（DMM）的政策、价格、上架与配信机制，以及平台侧的官方公告。"
+      "definition": "FANZA（DMM）的政策、價格、上架與配信機制，以及平臺側的官方公告。"
     },
     {
       "slug": "mgs",
-      "name": "MGS動画",
+      "name": "MGS動畫",
       "group": "company",
       "entityId": "mgs",
-      "definition": "MGS動画 的平台政策、促销与作品上架动态。"
+      "definition": "MGS動畫 的平臺政策、促銷與作品上架動態。"
     },
     {
       "slug": "duga",
       "name": "DUGA",
       "group": "company",
       "entityId": "duga",
-      "definition": "DUGA 的平台政策、促销与作品上架动态。"
+      "definition": "DUGA 的平臺政策、促銷與作品上架動態。"
     },
     {
       "slug": "pornhub",
       "name": "Pornhub",
       "group": "company",
       "entityId": "pornhub",
-      "definition": "Pornhub 的平台政策、内容审核、地区限制与诉讼相关动态。"
+      "definition": "Pornhub 的平臺政策、內容稽核、地區限制與訴訟相關動態。"
     },
     {
       "slug": "onlyfans",
       "name": "OnlyFans",
       "group": "company",
       "entityId": "onlyfans",
-      "definition": "OnlyFans 的创作者经济、平台政策与合规动态。"
+      "definition": "OnlyFans 的創作者經濟、平臺政策與合規動態。"
     },
     {
       "slug": "vixen",
       "name": "Vixen Media Group",
       "group": "company",
       "entityId": "vixen",
-      "definition": "Vixen Media Group（Blacked、Tushy、Deeper 等）的欧美作品与厂牌动态。"
+      "definition": "Vixen Media Group（Blacked、Tushy、Deeper 等）的歐美作品與廠牌動態。"
     },
     {
       "slug": "aylo",
       "name": "Aylo",
       "group": "company",
       "entityId": "aylo",
-      "definition": "Aylo（原 MindGeek）旗下 Brazzers、Reality Kings 等的平台与经营动态。"
+      "definition": "Aylo（原 MindGeek）旗下 Brazzers、Reality Kings 等的平臺與經營動態。"
     },
     {
       "slug": "avn",
       "name": "AVN",
       "group": "company",
       "entityId": "avn",
-      "definition": "AVN 的业界报道与 AVN Awards 相关动态。"
+      "definition": "AVN 的業界報道與 AVN Awards 相關動態。"
     },
     {
       "slug": "xbiz",
       "name": "XBIZ",
       "group": "company",
       "entityId": "xbiz",
-      "definition": "XBIZ 的业界报道与 XBIZ Awards 相关动态。"
+      "definition": "XBIZ 的業界報道與 XBIZ Awards 相關動態。"
     },
     {
       "slug": "ippa",
       "name": "IPPA",
       "group": "company",
       "entityId": "ippa",
-      "definition": "IPPA（知的財産振興協会）的取缔行动、业界合作与官方声明。"
+      "definition": "IPPA（知的財産振興協会）的取締行動、業界合作與官方宣告。"
     },
     {
       "slug": "vr",
       "name": "VR",
       "group": "field",
       "tags": ["VR"],
-      "definition": "VR 作品与 VR 制作、播放技术相关的发布与产业动态。"
+      "definition": "VR 作品與 VR 製作、播放技術相關的釋出與產業動態。"
     },
     {
       "slug": "amateur",
       "name": "素人",
       "group": "field",
       "tags": ["素人"],
-      "definition": "素人题材的作品发布、厂牌与产业讨论。"
+      "definition": "素人題材的作品釋出、廠牌與產業討論。"
     },
     {
       "slug": "mature",
       "name": "熟女",
       "group": "field",
       "tags": ["熟女"],
-      "definition": "熟女题材的作品、厂牌与出演者动态。"
+      "definition": "熟女題材的作品、廠牌與出演者動態。"
     },
     {
       "slug": "married",
       "name": "人妻",
       "group": "field",
       "tags": ["人妻"],
-      "definition": "人妻题材的作品、厂牌与系列动态。"
+      "definition": "人妻題材的作品、廠牌與系列動態。"
     },
     {
       "slug": "single-work",
-      "name": "企划单体",
+      "name": "企劃單體",
       "group": "field",
-      "tags": ["企划单体"],
-      "definition": "企划单体（按单一作品计酬）相关的作品、制度与出演者动态。"
+      "tags": ["企劃單體"],
+      "definition": "企劃單體（按單一作品計酬）相關的作品、制度與出演者動態。"
     },
     {
       "slug": "series",
       "name": "系列作品",
       "group": "field",
       "tags": ["系列作品"],
-      "definition": "长期系列的新作发布、系列层面的调整与终止。"
+      "definition": "長期系列的新作釋出、系列層面的調整與終止。"
     },
     {
       "slug": "drama",
-      "name": "剧情长篇",
+      "name": "劇情長篇",
       "group": "field",
-      "tags": ["剧情长篇"],
-      "definition": "长篇剧情作品的发布、制作与评价。"
+      "tags": ["劇情長篇"],
+      "definition": "長篇劇情作品的釋出、製作與評價。"
     },
     {
       "slug": "gravure",
-      "name": "偶像写真",
+      "name": "偶像寫真",
       "group": "field",
-      "tags": ["偶像写真"],
-      "definition": "写真、偶像与相关跨领域作品动态。"
+      "tags": ["偶像寫真"],
+      "definition": "寫真、偶像與相關跨領域作品動態。"
     },
     {
       "slug": "western",
-      "name": "欧美",
+      "name": "歐美",
       "group": "field",
-      "tags": ["欧美"],
-      "definition": "欧美成人影片产业的片商、平台、出演者与法规动态。"
+      "tags": ["歐美"],
+      "definition": "歐美成人影片產業的片商、平臺、出演者與法規動態。"
     },
     {
       "slug": "asia",
-      "name": "亚洲其他",
+      "name": "亞洲其他",
       "group": "field",
-      "tags": ["亚洲其他"],
-      "definition": "日本以外亚洲市场的产业动态。"
+      "tags": ["亞洲其他"],
+      "definition": "日本以外亞洲市場的產業動態。"
     },
     {
       "slug": "anime",
-      "name": "动画/二次元",
+      "name": "動畫/二次元",
       "group": "field",
-      "tags": ["动画/二次元"],
-      "definition": "动画与二次元题材的作品、厂牌与产业动态。"
+      "tags": ["動畫/二次元"],
+      "definition": "動畫與二次元題材的作品、廠牌與產業動態。"
     },
     {
       "slug": "debut",
       "name": "出道",
       "group": "field",
       "tags": ["出道"],
-      "definition": "新出演者的出道公告与相关作品发布。"
+      "definition": "新出演者的出道公告與相關作品釋出。"
     },
     {
       "slug": "retirement",
       "name": "引退",
       "group": "field",
       "tags": ["引退"],
-      "definition": "出演者引退、休业与毕业相关的公告与后续。"
+      "definition": "出演者引退、休業與畢業相關的公告與後續。"
     },
     {
       "slug": "transfer",
       "name": "移籍",
       "group": "field",
       "tags": ["移籍"],
-      "definition": "出演者的移籍、专属变更与事务所异动。"
+      "definition": "出演者的移籍、專屬變更與事務所異動。"
     },
     {
       "slug": "releases",
-      "name": "新作发售",
+      "name": "新作發售",
       "group": "genre",
-      "tags": ["新作情报"],
-      "definition": "各家片商的新作公布与发售情报。"
+      "tags": ["新作情報"],
+      "definition": "各家片商的新作公佈與發售情報。"
     },
     {
       "slug": "performers",
-      "name": "出演者动态",
+      "name": "出演者動態",
       "group": "genre",
       "tags": ["出演者"],
-      "definition": "出演者个人的动向：出道、引退、移籍、获奖与个人活动。"
+      "definition": "出演者個人的動向：出道、引退、移籍、獲獎與個人活動。"
     },
     {
       "slug": "business",
-      "name": "产业经营",
+      "name": "產業經營",
       "group": "genre",
-      "tags": ["产业经营"],
-      "definition": "公司经营、并购、投资、财报、人事与诉讼。"
+      "tags": ["產業經營"],
+      "definition": "公司經營、併購、投資、財報、人事與訴訟。"
     },
     {
       "slug": "policy",
-      "name": "政策与权益",
+      "name": "政策與權益",
       "group": "genre",
-      "tags": ["政策/法规"],
-      "definition": "法规、主管机关、审查规范与出演者权益议题。"
+      "tags": ["政策/法規"],
+      "definition": "法規、主管機關、審查規範與出演者權益議題。"
     },
     {
       "slug": "awards",
-      "name": "奖项与榜单",
+      "name": "獎項與榜單",
       "group": "genre",
-      "tags": ["奖项/榜单"],
-      "definition": "奖项、榜单与票选的规则、入围与结果。"
+      "tags": ["獎項/榜單"],
+      "definition": "獎項、榜單與票選的規則、入圍與結果。"
     },
     {
       "slug": "antipiracy",
-      "name": "盗版与取缔",
+      "name": "盜版與取締",
       "group": "genre",
-      "tags": ["盗版/取缔"],
-      "definition": "盗版取缔、著作权诉讼与平台下架行动。"
+      "tags": ["盜版/取締"],
+      "definition": "盜版取締、著作權訴訟與平臺下架行動。"
     },
     {
       "slug": "streaming",
-      "name": "平台与订阅",
+      "name": "平臺與訂閱",
       "group": "genre",
-      "tags": ["串流/订阅"],
-      "definition": "平台的价格、订阅方案、地区可用性与上架机制。"
+      "tags": ["串流/訂閱"],
+      "definition": "平臺的價格、訂閱方案、地區可用性與上架機制。"
     },
     {
       "slug": "opinion",
-      "name": "产业观点",
+      "name": "產業觀點",
       "group": "genre",
-      "tags": ["产业观点"],
-      "definition": "对产业的观察、评论与访谈。"
+      "tags": ["產業觀點"],
+      "definition": "對產業的觀察、評論與訪談。"
     }
   ]
 }

@@ -67,7 +67,7 @@ test("a model service's outage names the steps that call it, not the wording ste
   const kept = list.splice(0);
   try {
     assert.ok(!providerStops(service).includes(wording), "nothing to look for: the step never calls a model");
-    list.push([/禁用词/u, "换一个说法"]);
+    list.push([/停用詞/u, "換一個說法"]);
     assert.ok(providerStops(service).includes(wording));
   } finally {
     list.splice(0, list.length, ...kept);
@@ -113,7 +113,7 @@ test("selected identity delays show reader impact, recovery state and the affect
       VALUES(${id},${source},${id},${`https://example.com/${id}`},${id},${at},${at},${at},${state},${state === "failed" ? "identity provider timed out" : null})`;
     await sql`INSERT INTO publications(article_id,source_id,title,summary,eligible,selected,selection_candidate,visibility,
       selected_ready_at,discovered_at,timeline_at,sort_at,url,category,channel)
-      VALUES(${id},${source},${`新闻 ${id}`},'摘要',true,false,${candidate},${visibility},${at},${at},${at},${at},${`https://example.com/${id}`},'industry','news')`;
+      VALUES(${id},${source},${`新聞 ${id}`},'摘要',true,false,${candidate},${visibility},${at},${at},${at},${at},${`https://example.com/${id}`},'industry','news')`;
   };
   process.env.COLLECT_ENABLED = "true";
   process.env.MODEL_CALLS_ENABLED = "true";
@@ -132,8 +132,8 @@ test("selected identity delays show reader impact, recovery state and the affect
     await make("group-alert-failed", 20, "failed");
     let warning = await finding();
     assert.equal(warning?.level, "now");
-    assert.match(warning!.impact!, /1 条.*精选/);
-    assert.match(warning!.heals!, /人工|处理后/);
+    assert.match(warning!.impact!, /1 條.*精選/);
+    assert.match(warning!.heals!, /人工|處理後/);
     assert.match(warning!.detail!, /group-alert-failed/);
     const runs = await runsOverview();
     assert.equal(runs.grouping.waiting, 3, "the runs page includes normal waits but no false candidates");
@@ -144,12 +144,12 @@ test("selected identity delays show reader impact, recovery state and the affect
       VALUES('group-alert-receipt','deepseek','event_identity','article:group-alert-failed','unknown') RETURNING id`;
     await sql`UPDATE articles SET grouping_receipt_id=${receipt!.id} WHERE id='group-alert-failed'`;
     warning = await finding();
-    assert.match(warning!.heals!, /自动/);
-    assert.match(warning!.heals!, /30 分钟/);
+    assert.match(warning!.heals!, /自動/);
+    assert.match(warning!.heals!, /30 分鐘/);
     await sql`INSERT INTO receipt_attempts(receipt_id,service,attempt,status,error)
-      VALUES(${receipt!.id},'deepseek',1,'failed','自动放行：结果未知超过 30 分钟，未核对是否计费')`;
+      VALUES(${receipt!.id},'deepseek',1,'failed','自動放行：結果未知超過 30 分鐘，未核對是否計費')`;
     warning = await finding();
-    assert.match(warning!.heals!, /人工|处理后/);
+    assert.match(warning!.heals!, /人工|處理後/);
     assert.match(warning!.detail!, new RegExp(`#${receipt!.id}`));
 
     await sql`UPDATE articles SET grouping_status='complete',grouped_at=now(),grouping_receipt_id=NULL WHERE id='group-alert-failed'`;
@@ -176,8 +176,8 @@ test("the ops digest does not describe unknown paid work as harmless or already 
     console.log = (value: unknown) => { lines.push(String(value)); };
     await sendDigest();
     const message = lines.join("\n");
-    assert.match(message, /结果.*未知|结果.*确认/);
-    assert.doesNotMatch(message, /以下事项不影响读者|自动重试过一次/);
+    assert.match(message, /結果.*未知|結果.*確認/);
+    assert.doesNotMatch(message, /以下事項不影響讀者|自動重試過一次/);
   } finally {
     console.log = log;
     if (enabled === undefined) delete process.env.FEISHU_INTERNAL_ENABLED;

@@ -20,7 +20,7 @@ export interface RiverSource {
 export const STAGES = [0, 0.25, 0.5, 0.75, 1] as const;
 
 const STEP = 3;
-const KIND: Record<string, string> = { x_search: "X 账号", rss: "RSS", web_list: "网页", mp_account: "公众号", json_list: "接口" };
+const KIND: Record<string, string> = { x_search: "X 賬號", rss: "RSS", web_list: "網頁", mp_account: "公眾號", json_list: "介面" };
 const FLASH_MS = 900;
 const INTRO_MS = 1800;
 /** Slow in, slow out: the river starts gently, crosses, and settles. */
@@ -482,7 +482,7 @@ export function SignalRiver({
       const p = L.paper;
       if (x >= p.x - 8 && x <= p.x + p.w + 8 && y >= p.y - 8 && y <= p.y + p.h + 8) {
         hover = { s: null, bundle: null, paper: true };
-        place(x, y, withSubject("日报"), EDITION.daily);
+        place(x, y, withSubject("日報"), EDITION.daily);
         redraw();
         return;
       }
@@ -506,12 +506,12 @@ export function SignalRiver({
       if (x < L.x2) {
         hover = { s: best, bundle: null, paper: false };
         const kind = s.source ? (KIND[s.source.kind] ?? "信源") : "信源";
-        place(x, y, s.source ? s.source.name : "一个信源", s.source?.heatOnly ? `${kind} · 只计入热度` : kind);
+        place(x, y, s.source ? s.source.name : "一個信源", s.source?.heatOnly ? `${kind} · 只計入熱度` : kind);
       } else {
         hover = { s: null, bundle: s.bundle, paper: false };
-        if (x < L.gate) place(x, y, "同一件事", `${b.n} 个来源的报道合成一条`);
-        else if (b.kept) place(x, y, "进了精选", "有信息量，分数也够");
-        else place(x, y, "没进精选", "信息不够、重复或只是营销");
+        if (x < L.gate) place(x, y, "同一件事", `${b.n} 個來源的報道合成一條`);
+        else if (b.kept) place(x, y, "進了精選", "有資訊量，分數也夠");
+        else place(x, y, "沒進精選", "資訊不夠、重複或只是營銷");
       }
       redraw();
     };

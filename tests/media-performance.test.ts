@@ -164,11 +164,11 @@ test("site media exposes responsive previews and full lightboxes while RSS retai
 });
 
 test("concurrent cold OG and poster requests all succeed with identical cached bytes", async () => {
-  const card = { kicker: SITE.name, title: "并发渲染验证", subtitle: "同一图片只生成一次" };
+  const card = { kicker: SITE.name, title: "併發渲染驗證", subtitle: "同一圖片只生成一次" };
   const cards = await Promise.all(Array.from({ length: 3 }, () => renderOg(card)));
   for (const result of cards) assert.deepEqual(result, cards[0]);
   assert.equal((await sharp(cards[0]!.png).metadata()).width, 1200);
-  const poster = { url: "https://example.com/items/test", kicker: SITE.name, title: "海报并发验证", summary: null, source: SITE.name, date: "2026-09-28", score: null };
+  const poster = { url: "https://example.com/items/test", kicker: SITE.name, title: "海報併發驗證", summary: null, source: SITE.name, date: "2026-09-28", score: null };
   const posters = await Promise.all(Array.from({ length: 2 }, () => renderPoster(poster)));
   for (const result of posters) assert.deepEqual(result, posters[0]);
   assert.equal((await sharp(posters[0]!.png).metadata()).width, 1080);

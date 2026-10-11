@@ -34,7 +34,7 @@ const provider = await stub(async (_hit, request) => {
   const content = step === "prefilter" ? { label: original ? "BLOCK" : "PASS", reason: "local fixture" }
     : step === "score" ? { attentionScore: SELECTING_SCORE }
     : step === "structure" ? { category: "new-releases", tags: [], subjects: [], fact: null }
-    : { itemType: "new_release", authorRole: "principal", tags: ["新作情报"], editorialJudgment: "模型能力提升", titleZh: `新判断 ${T}`, summaryZh: "模型发布并提供评测和价格。" };
+    : { itemType: "new_release", authorRole: "principal", tags: ["新作情報"], editorialJudgment: "模型能力提升", titleZh: `新判斷 ${T}`, summaryZh: "模型釋出並提供評測和價格。" };
   return { choices: [{ message: { content: JSON.stringify(content) } }] };
 });
 pointModels(provider.url);

@@ -20,7 +20,7 @@ const keys = Object.fromEntries(kinds.map((kind) => [kind, Array.from({ length: 
 const index = (kind: ReportKind): ReportNavigationEntry[] => keys[kind].map((key, i) => ({ key, issueNumber: i + 1, title: `第${i + 1}期` })).reverse().slice(0, 400);
 function report(kind: ReportKind, key: string): ReportDetail {
   return {
-    kind, key, issueNumber: keys[kind].indexOf(key) + 1, title: "测试刊物", generatedAt: "2020-01-02T00:00:00Z",
+    kind, key, issueNumber: keys[kind].indexOf(key) + 1, title: "測試刊物", generatedAt: "2020-01-02T00:00:00Z",
     lead: null, leadItemId: null, overview: null, highlights: [], sections: [], flashes: [], cover: null, metrics: {}, readingMinutes: 1, prev: null, next: null,
   };
 }

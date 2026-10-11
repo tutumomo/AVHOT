@@ -30,7 +30,7 @@ interface Row {
 
 function card(r: Row) {
   const category = r.category ? CATEGORY_LABELS[r.category] : null;
-  const lines = [r.summary, r.reason ? `**${ITEM_COPY.reasonLabel}**：${r.reason}` : null, `来源：${publicSourceName(r.source_name)}`].filter(Boolean);
+  const lines = [r.summary, r.reason ? `**${ITEM_COPY.reasonLabel}**：${r.reason}` : null, `來源：${publicSourceName(r.source_name)}`].filter(Boolean);
   return {
     header: { title: { tag: "plain_text", content: r.title }, template: "turquoise" },
     elements: [
@@ -39,7 +39,7 @@ function card(r: Row) {
       {
         tag: "action",
         actions: [
-          { tag: "button", text: { tag: "plain_text", content: `${SITE.name} 查看` }, url: itemUrl(r.article_id), type: "primary" },
+          { tag: "button", text: { tag: "plain_text", content: `${SITE.name} 檢視` }, url: itemUrl(r.article_id), type: "primary" },
           { tag: "button", text: { tag: "plain_text", content: "原文" }, url: r.url, type: "default" },
         ],
       },

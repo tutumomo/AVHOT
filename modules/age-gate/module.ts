@@ -1,5 +1,5 @@
-// 年龄闸门模块的地址声明：它没有自己的页面、跳转或接口，全部行为都在 web.tsx 里
-// （root.bootScript 在绘制前挡住内容，root.Bottom 画出确认层）。
+// 年齡閘門模組的地址宣告：它沒有自己的頁面、跳轉或介面，全部行為都在 web.tsx 裡
+// （root.bootScript 在繪製前擋住內容，root.Bottom 畫出確認層）。
 import { defineModule } from "@aihot/contracts/modules";
 
 export const ageGate = defineModule({ name: "age-gate" });

@@ -1,0 +1,10 @@
+{
+  "name": "@aihot/fanza",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./module.ts",
+    "./server": "./server.ts"
+  }
+}

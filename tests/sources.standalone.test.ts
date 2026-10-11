@@ -32,7 +32,7 @@ const pages: Record<string, () => string> = {
     `<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"><entry><title>Episode 42</title><link rel="alternate" href="https://example.org/episodes/42"/>` +
     `<published>2026-09-30T00:00:00Z</published><summary type="html">How leaders build confidence with their team.</summary></entry></feed>`,
   // A list API that gives wall-clock times without a zone, and a page whose metadata does too.
-  "/zoneless.json": () => JSON.stringify({ result: [{ id: "a", title: "采购公告", publishDate: "2026-09-30 17:43:58" }, { id: "b", title: "Zoned", publishDate: "2026-09-30T17:43:58Z" }, { id: "c", title: "Abbreviated zone", publishDate: "Wed, 30 Sep 2026 17:43:58 EST" }] }),
+  "/zoneless.json": () => JSON.stringify({ result: [{ id: "a", title: "採購公告", publishDate: "2026-09-30 17:43:58" }, { id: "b", title: "Zoned", publishDate: "2026-09-30T17:43:58Z" }, { id: "c", title: "Abbreviated zone", publishDate: "Wed, 30 Sep 2026 17:43:58 EST" }] }),
   "/zoneless-post": () => `<html><head><meta property="article:published_time" content="2026-09-30 17:43:58"></head><body><p>Post</p></body></html>`,
   // A list API that gives calendar days as yyyymmdd.
   "/days.json": () => JSON.stringify({ data: { list: [{ seq: 695, ttl: "MCFlow", day: "20260922" }, { seq: 1, ttl: "Bad day", day: "20260230" }] } }),
@@ -55,16 +55,16 @@ after(() => new Promise<void>((resolve) => server.close(() => resolve())));
 test("Jina card links become posts with their own titles", () => {
   const md = [
     "[Skip to main content](http://example.org/blog/#main)",
-    "[![Image 1: hero](https://cdn.example.org/a.jpg) ##### 智元发布GE-Act 2.0 新闻资讯 | 2026-09-20](https://example.org/blog/220.html \"智元发布GE-Act 2.0\")",
-    "[![Image 2](https://cdn.example.org/b.png) ##### 小米18 Pro Max 测评 尾巴视频](http://example.org/blog/784.html)",
+    "[![Image 1: hero](https://cdn.example.org/a.jpg) ##### 智元釋出GE-Act 2.0 新聞資訊 | 2026-09-20](https://example.org/blog/220.html \"智元釋出GE-Act 2.0\")",
+    "[![Image 2](https://cdn.example.org/b.png) ##### 小米18 Pro Max 測評 尾巴影片](http://example.org/blog/784.html)",
     "[![Image 3](https://cdn.example.org/c.png)](https://example.org/blog/carousel.html)",
     "# [Introducing v6](http://example.org/blog/introducing-v6)",
     "[2026](http://example.org/blog/2026) [Algorithms & Theory](http://example.org/blog/label/algorithms) [Next page](http://example.org/blog/page/2)",
   ].join("\n\n");
   const out = fromMarkdown(md, "https://example.org", source({ url: "https://r.jina.ai/http://example.org/blog/", allowUrlPrefixes: ["https://example.org/blog/"] }));
   assert.deepEqual(out, [
-    { url: "https://example.org/blog/220.html", title: "智元发布GE-Act 2.0" },
-    { url: "https://example.org/blog/784.html", title: "小米18 Pro Max 测评 尾巴视频" },
+    { url: "https://example.org/blog/220.html", title: "智元釋出GE-Act 2.0" },
+    { url: "https://example.org/blog/784.html", title: "小米18 Pro Max 測評 尾巴影片" },
     { url: "https://example.org/blog/introducing-v6", title: "Introducing v6" },
   ]);
 });
@@ -179,11 +179,11 @@ test("hidden page parts are dropped whole, and a news page's closing blocks are 
 
 test("noise words match whatever their case", () => {
   // 笔记本 is noise, but the lower-case exemption vr keeps a post about a VR product.
-  const source = { config: { ingestNoiseFilter: { dropMarkers: ["笔记本", "iphone"], keepIfMatches: ["vr"] } } } as never;
+  const source = { config: { ingestNoiseFilter: { dropMarkers: ["筆記本", "iphone"], keepIfMatches: ["vr"] } } } as never;
   const c = (title: string, excerpt: string) => ({ url: "https://example.org/a", title, excerpt }) as never;
-  assert.equal(noiseFiltered(c("S1：正组建团队开发面向国内市场的产品", "与笔记本厂商合作的 VR 产品"), source), false);
-  assert.equal(noiseFiltered(c("新款笔记本开售", "首发价 4999 元"), source), true);
-  assert.equal(noiseFiltered(c("iPhone 18 开售", ""), source), true);
+  assert.equal(noiseFiltered(c("S1：正組建團隊開發面向國內市場的產品", "與筆記本廠商合作的 VR 產品"), source), false);
+  assert.equal(noiseFiltered(c("新款筆記本開售", "首發價 4999 元"), source), true);
+  assert.equal(noiseFiltered(c("iPhone 18 開售", ""), source), true);
 });
 
 test("a time without a zone is read in the source's offset, in JSON lists and in detail page metadata", async () => {

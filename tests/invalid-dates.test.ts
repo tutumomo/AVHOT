@@ -55,7 +55,7 @@ for (const unit of ["epoch_s", "epoch_ms", "text"] as const) {
     assert.equal((await timeline(articles[4]!.id)).published_at?.getTime(), now - 1000);
     assert.ok(articles.every((article) => article.processing_queued_at !== null));
     const queued = await sql`SELECT id FROM pgboss.job WHERE name=${QUEUES.analyze} AND data->>'articleId'=${articles[4]!.id}`;
-    assert.equal(queued.length, 1, "最后一条资料仍进入分析队列");
+    assert.equal(queued.length, 1, "最後一條資料仍進入分析佇列");
     const second = await collectSource(s.id);
     assert.deepEqual([second.status, second.found, second.created, second.revised], ["ok", 5, 0, 0]);
   });

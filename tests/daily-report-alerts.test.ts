@@ -76,7 +76,7 @@ test("an edition still missing past the scan window is closed once instead of re
 
 test("legacy alert migrates its date and preserves reminder timing", async () => {
   const since = new Date(at("2026-10-06", "23:30")).toISOString();
-  await sql`INSERT INTO settings(key,value) VALUES('alerts.state',${sql.json({ "report.daily": { title: "今天的日报还没生成", since, sentAt: since } })})`;
+  await sql`INSERT INTO settings(key,value) VALUES('alerts.state',${sql.json({ "report.daily": { title: "今天的日報還沒生成", since, sentAt: since } })})`;
   let result = await checkAlerts(at("2026-10-07", "00:10"));
   assert.deepEqual(daily(result.open), [key("2026-10-06")]);
   assert.deepEqual(daily(result.sent), []);

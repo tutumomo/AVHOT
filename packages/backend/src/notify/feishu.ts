@@ -102,21 +102,21 @@ export const beijingStamp = (at: Date | string | number) => `${beijingDay(at)} $
 
 export function duration(ms: number): string {
   const min = Math.max(1, Math.round(ms / 60_000));
-  if (min < 60) return `${min} 分钟`;
-  if (min < 48 * 60) return `${Math.floor(min / 60)} 小时${min % 60 ? ` ${min % 60} 分钟` : ""}`;
+  if (min < 60) return `${min} 分鐘`;
+  if (min < 48 * 60) return `${Math.floor(min / 60)} 小時${min % 60 ? ` ${min % 60} 分鐘` : ""}`;
   return `${Math.floor(min / 1440)} 天`;
 }
 
 /** The message for an open problem: first notice or a repeat. */
 export function formatAlert(f: Finding, since: Date, now: number, repeat = false): { title: string; lines: string[] } {
   const level = f.level === "later" ? "today" : f.level;
-  const lasting = now - since.getTime() >= 60_000 ? `（已持续 ${duration(now - since.getTime())}）` : "";
-  const lines = [f.impact && `影响：${f.impact}`, f.heals && `会自己好吗：${f.heals}`, f.action && `你需要：${f.action}`];
-  return { title: `${MARK[level]} ${repeat ? "仍未恢复：" : ""}${f.title}${lasting}`, lines: lines.filter((l): l is string => !!l) };
+  const lasting = now - since.getTime() >= 60_000 ? `（已持續 ${duration(now - since.getTime())}）` : "";
+  const lines = [f.impact && `影響：${f.impact}`, f.heals && `會自己好嗎：${f.heals}`, f.action && `你需要：${f.action}`];
+  return { title: `${MARK[level]} ${repeat ? "仍未恢復：" : ""}${f.title}${lasting}`, lines: lines.filter((l): l is string => !!l) };
 }
 
 export function formatRecovery(title: string, since: Date, now: number): { title: string; lines: string[] } {
-  return { title: `✅ 已恢复：${title}`, lines: [`持续 ${duration(now - since.getTime())}（${beijingStamp(since)} 起）`] };
+  return { title: `✅ 已恢復：${title}`, lines: [`持續 ${duration(now - since.getTime())}（${beijingStamp(since)} 起）`] };
 }
 
 /** Operations alert: the alert chat, falling back to the internal feedback chat — never a content group. */
@@ -143,14 +143,14 @@ const SCREENSHOT_GIVE_UP_MS = 24 * 3600_000;
 async function screenshotFor(fb: { id: number; screenshot_key: string | null; created_at: Date }): Promise<{ imageKey: string | null; note: string | null }> {
   const key = fb.screenshot_key;
   if (key?.startsWith("feishu:")) return { imageKey: key.slice("feishu:".length), note: null };
-  if (key === "gone:upload") return { imageKey: null, note: "（截图未能上传，已删除）" };
-  if (key === "gone:missing") return { imageKey: null, note: "（截图文件已不存在）" };
+  if (key === "gone:upload") return { imageKey: null, note: "（截圖未能上傳，已刪除）" };
+  if (key === "gone:missing") return { imageKey: null, note: "（截圖檔案已不存在）" };
   if (!key?.startsWith("local:")) return { imageKey: null, note: null };
   const file = path.join(config.dataDir, "feedback-screenshots", key.slice("local:".length));
   const data = await readFile(file).catch(() => null);
   if (!data) {
     await sql`UPDATE feedback SET screenshot_key = 'gone:missing' WHERE id = ${fb.id}`;
-    return { imageKey: null, note: "（截图文件已不存在）" };
+    return { imageKey: null, note: "（截圖檔案已不存在）" };
   }
   try {
     const imageKey = await uploadImage(data, path.basename(file));
@@ -163,7 +163,7 @@ async function screenshotFor(fb: { id: number; screenshot_key: string | null; cr
     if (!(error instanceof ImageRefusedError) && Date.now() - fb.created_at.getTime() < SCREENSHOT_GIVE_UP_MS) throw error;
     await sql`UPDATE feedback SET screenshot_key = 'gone:upload' WHERE id = ${fb.id}`;
     await unlink(file).catch(() => {});
-    return { imageKey: null, note: "（截图未能上传，已删除）" };
+    return { imageKey: null, note: "（截圖未能上傳，已刪除）" };
   }
 }
 
@@ -182,13 +182,13 @@ export async function forwardFeedbackToFeishu(id: number): Promise<"sent" | "dis
     const shot = await screenshotFor(fb);
     const paragraphs: unknown[][] = [
       [{ tag: "text", text: fb.content }],
-      [{ tag: "text", text: `页面：${fb.page_url ?? "—"}` }],
-      [{ tag: "text", text: `邮箱：${fb.email ?? "（未留）"}` }],
+      [{ tag: "text", text: `頁面：${fb.page_url ?? "—"}` }],
+      [{ tag: "text", text: `郵箱：${fb.email ?? "（未留）"}` }],
     ];
     if (fb.note) paragraphs.push([{ tag: "text", text: fb.note }]);
     if (shot.imageKey) paragraphs.push([{ tag: "img", image_key: shot.imageKey }]);
     else if (shot.note) paragraphs.push([{ tag: "text", text: shot.note }]);
-    await sendToChat(chat, "post", { zh_cn: { title: `反馈 #${fb.id}`, content: paragraphs } });
+    await sendToChat(chat, "post", { zh_cn: { title: `反饋 #${fb.id}`, content: paragraphs } });
     await sql`UPDATE feedback SET forwarded_at = now(), forward_error = NULL WHERE id = ${id}`;
     return "sent";
   } catch (error) {

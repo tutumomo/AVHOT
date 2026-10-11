@@ -43,7 +43,7 @@ for (const headers of [{ Authorization: `Bearer ${key}` }, { aUtHoRiZaTiOn: key 
     redirect("/header", b.url + "/capture", 307);
     const count = b.hits.length;
     await assert.rejects(guardedFetch(a.url + "/header", { headers }), /redirect/i);
-    assert.equal(b.hits.length, count, "目标服务不得收到请求");
+    assert.equal(b.hits.length, count, "目標服務不得收到請求");
   });
 }
 for (const body of [JSON.stringify({ key }), ""]) {
@@ -86,7 +86,7 @@ for (const status of [301, 302, 303, 307, 308]) {
       assert.equal(hit.body, converted ? "" : body ?? "");
       assert.equal(hit.headers.authorization, key);
       if (converted) for (const name of ["content-type", "content-language", "content-location", "content-encoding", "content-length"]) assert.equal(hit.headers[name], undefined, name);
-      assert.deepEqual(headers, before, "不得修改调用方头对象");
+      assert.deepEqual(headers, before, "不得修改呼叫方頭物件");
     });
   }
 }

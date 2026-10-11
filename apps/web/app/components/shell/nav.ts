@@ -19,13 +19,13 @@ export interface NavItem {
 
 const SECTIONS: Array<{ title: string; items: NavItem[] }> = [
   {
-    title: "内容",
+    title: "內容",
     items: [
-      { to: "/", label: "精选", icon: IconBolt, end: true },
-      { to: "/all", label: subjectAfter("全部", "动态"), icon: IconList },
-      { to: "/hot", label: "热点榜", icon: IconFlame },
-      { to: "/daily", label: withSubject("日报"), icon: IconDoc },
-      { to: "/topics", label: "主题", icon: IconGrid },
+      { to: "/", label: "精選", icon: IconBolt, end: true },
+      { to: "/all", label: subjectAfter("全部", "動態"), icon: IconList },
+      { to: "/hot", label: "熱點榜", icon: IconFlame },
+      { to: "/daily", label: withSubject("日報"), icon: IconDoc },
+      { to: "/topics", label: "主題", icon: IconGrid },
       { to: "/starred", label: "收藏", icon: IconBookmark },
     ],
   },
@@ -33,9 +33,9 @@ const SECTIONS: Array<{ title: string; items: NavItem[] }> = [
     title: "更多",
     items: [
       { to: "/agent", label: "Agent 接入", icon: IconPlug },
-      { to: "/about", label: "关于", icon: IconHeart },
-      { to: "/changelog", label: "更新日志", icon: IconHistory, changelog: true },
-      { to: "/feedback", label: "反馈", icon: IconMessage },
+      { to: "/about", label: "關於", icon: IconHeart },
+      { to: "/changelog", label: "更新日誌", icon: IconHistory, changelog: true },
+      { to: "/feedback", label: "反饋", icon: IconMessage },
     ],
   },
 ];
@@ -89,9 +89,9 @@ export interface Tab {
 }
 
 const ENGINE_TABS: Tab[] = [
-  { key: "featured", to: "/", label: "精选", icon: IconBolt },
-  { key: "hot", to: "/hot", label: "热点", icon: IconFlame },
-  { key: "daily", to: "/daily", label: "日报", icon: IconDoc },
+  { key: "featured", to: "/", label: "精選", icon: IconBolt },
+  { key: "hot", to: "/hot", label: "熱點", icon: IconFlame },
+  { key: "daily", to: "/daily", label: "日報", icon: IconDoc },
   { key: "me", to: "/more", label: "我的", icon: IconUser, changelog: true },
 ];
 

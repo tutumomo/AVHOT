@@ -105,7 +105,7 @@ test("another source listing the same article records a discovery, not a revisio
   const url = `https://example.com/listed-twice-${tag()}`;
   const own = await upsertMaterial({ sourceId: SOURCE, url, title: "One month without AI", excerpt: "own summary", via: "fetch" });
   for (let i = 0; i < 3; i++) {
-    const mirror = await upsertMaterial({ sourceId: OTHER, url, title: "没有AI的一个月", excerpt: "译文摘要", via: "fetch" });
+    const mirror = await upsertMaterial({ sourceId: OTHER, url, title: "沒有AI的一個月", excerpt: "譯文摘要", via: "fetch" });
     assert.deepEqual([mirror.articleId, mirror.revised], [own.articleId, false]);
     assert.equal((await upsertMaterial({ sourceId: SOURCE, url, title: "One month without AI", excerpt: "own summary", via: "fetch" })).revised, false);
   }
@@ -136,7 +136,7 @@ test("an article linking to a tweet is stored separately from the tweet", async 
 test("another source reporting an imported article first does not set its baseline", async () => {
   const url = `https://example.com/imported-mirror-${tag()}`;
   const id = await imported(url);
-  const mirror = await upsertMaterial({ sourceId: OTHER, url, title: "镜像站的标题", excerpt: "镜像摘要", via: "fetch" });
+  const mirror = await upsertMaterial({ sourceId: OTHER, url, title: "映象站的標題", excerpt: "映象摘要", via: "fetch" });
   assert.deepEqual([mirror.articleId, mirror.revised], [id, false]);
   assert.equal((await state(id)).content_hash, null, "the mirror's version is not the baseline");
   const own = await upsertMaterial({ sourceId: SOURCE, url, title: "Imported title", excerpt: "feed summary", via: "fetch" });
@@ -176,18 +176,18 @@ test("an imported article that returns to its baseline is not revised again", as
 test("characters lost in transit are no revision, lost or restored", async () => {
   // A feed that garbles a few characters at random on every load: the 盖 of 覆盖 arrives as two U+FFFD, a ， as three.
   const url = `https://example.com/garbled-${tag()}`;
-  const excerpt = "新旗舰店覆盖的产品范围更广，包括内衣、家居服、运动服饰、香水及身体护理。";
-  const clean = { sourceId: SOURCE, url, title: "维密重回上海淮海路，中国市场进入扩店阶段", excerpt, via: "fetch" as const };
+  const excerpt = "新旗艦店覆蓋的產品範圍更廣，包括內衣、家居服、運動服飾、香水及身體護理。";
+  const clean = { sourceId: SOURCE, url, title: "維密重回上海淮海路，中國市場進入擴店階段", excerpt, via: "fetch" as const };
   const lost = (s: string, from: string, n: number) => s.replace(from, "\uFFFD".repeat(n));
   const garbled = [
-    { ...clean, excerpt: lost(excerpt, "盖", 2) },
+    { ...clean, excerpt: lost(excerpt, "蓋", 2) },
     { ...clean, excerpt: lost(excerpt, "，", 3) },
     { ...clean, title: lost(clean.title, "淮", 2), excerpt: lost(excerpt, "衣", 1) },
   ];
   const first = await upsertMaterial(garbled[0]!);
   for (const report of [clean, ...garbled, clean]) assert.equal((await upsertMaterial(report)).revised, false);
   assert.equal((await state(first.articleId)).revision, 1);
-  const edited = (r: typeof clean) => ({ ...r, excerpt: r.excerpt.replace("香水", "美妆") });
+  const edited = (r: typeof clean) => ({ ...r, excerpt: r.excerpt.replace("香水", "美妝") });
   assert.equal((await upsertMaterial(edited(garbled[1]!))).revised, true, "a real change is one, lost characters or not");
   for (const report of [edited(clean), edited(garbled[2]!)]) assert.equal((await upsertMaterial(report)).revised, false);
   assert.equal((await state(first.articleId)).revision, 2);

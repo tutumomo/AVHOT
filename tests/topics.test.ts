@@ -58,7 +58,7 @@ async function report(r: Report): Promise<string> {
   });
   await sql`UPDATE articles SET discovered_at = ${r.at}, timeline_at = ${r.at}, grouped_at = now() WHERE id = ${articleId}`;
   await sql`INSERT INTO analyses (article_id, input_revision, origin, relevance, category, title_zh, summary_zh, score, selected, subjects, tags)
-            VALUES (${articleId}, 1, 'rule', 'pass', ${r.category ?? "new-releases"}, ${r.title}, ${`摘要 ${n}`}, ${r.score ?? 80}, ${r.selected ?? true}, ${r.subjects ?? []}, ${[r.category === "platforms" ? "平台/通路" : r.category === "awards" ? "奖项/榜单" : r.category === "culture" ? "产业观点" : r.category === "industry" ? "产业经营" : "新作情报", ...(r.tags ?? [])]})`;
+            VALUES (${articleId}, 1, 'rule', 'pass', ${r.category ?? "new-releases"}, ${r.title}, ${`摘要 ${n}`}, ${r.score ?? 80}, ${r.selected ?? true}, ${r.subjects ?? []}, ${[r.category === "platforms" ? "平臺/通路" : r.category === "awards" ? "獎項/榜單" : r.category === "culture" ? "產業觀點" : r.category === "industry" ? "產業經營" : "新作情報", ...(r.tags ?? [])]})`;
   if (r.fact) await sql`INSERT INTO fact_articles (fact_id, article_id, role) VALUES (${r.fact}, ${articleId}, 'report')`;
   await publishArticle(articleId, { releasedAt: new Date(r.at.getTime() + 60_000) });
   return articleId;
@@ -92,15 +92,15 @@ async function members(slug: string): Promise<string[]> {
 
 test("a company topic takes the articles about it, not the ones that only mention it", async () => {
   const about = await report({ at: hoursAgo(30), title: `S1 官方 推出公告 ${T}`, subjects: ["s1"] });
-  const product = await report({ at: hoursAgo(31), title: `エスワン 新版上线 ${T}`, subjects: ["s1"] });
-  const english = await report({ at: hoursAgo(32), title: `新模型发布 ${T}`, originalTitle: `S1 launches a model ${T}`, subjects: ["s1", "sod"] });
-  const subpoena = await report({ at: hoursAgo(33), title: `加州检察长向 SOD 发出传票 ${T}`, subjects: ["sod", "s1", "fanza"] });
-  const lowerCase = await report({ at: hoursAgo(34), title: `sod 公布新的安全框架 ${T}`, subjects: ["sod", "s1"] });
-  const pact = await report({ at: hoursAgo(35), title: `二十余家片商签署自律协议 ${T}`, subjects: ["sod", "s1", "fanza"] });
-  const metadata = await report({ at: hoursAgo(36), title: `Dugan 标准发布，SOD 参与 ${T}`, subjects: ["duga", "sod"] });
-  const adjacent = await report({ at: hoursAgo(37), title: `发布DUGA的新作品 ${T}`, subjects: ["duga", "sod"] });
-  const headline = await report({ at: hoursAgo(38), title: `S1 被一篇盘点提到 ${T}`, subjects: ["fanza"] });
-  const agent = await report({ at: hoursAgo(39), title: `智能体框架发布 ${T}`, tags: ["VR"] });
+  const product = await report({ at: hoursAgo(31), title: `エスワン 新版上線 ${T}`, subjects: ["s1"] });
+  const english = await report({ at: hoursAgo(32), title: `新模型釋出 ${T}`, originalTitle: `S1 launches a model ${T}`, subjects: ["s1", "sod"] });
+  const subpoena = await report({ at: hoursAgo(33), title: `加州檢察長向 SOD 發出傳票 ${T}`, subjects: ["sod", "s1", "fanza"] });
+  const lowerCase = await report({ at: hoursAgo(34), title: `sod 公佈新的安全框架 ${T}`, subjects: ["sod", "s1"] });
+  const pact = await report({ at: hoursAgo(35), title: `二十餘家片商簽署自律協議 ${T}`, subjects: ["sod", "s1", "fanza"] });
+  const metadata = await report({ at: hoursAgo(36), title: `Dugan 標準釋出，SOD 參與 ${T}`, subjects: ["duga", "sod"] });
+  const adjacent = await report({ at: hoursAgo(37), title: `釋出DUGA的新作品 ${T}`, subjects: ["duga", "sod"] });
+  const headline = await report({ at: hoursAgo(38), title: `S1 被一篇盤點提到 ${T}`, subjects: ["fanza"] });
+  const agent = await report({ at: hoursAgo(39), title: `智慧體框架釋出 ${T}`, tags: ["VR"] });
 
   const anthropic = await members("s1");
   for (const id of [about, product, english]) assert.ok(anthropic.includes(id), "about Anthropic");
@@ -125,21 +125,21 @@ test("a company topic takes the articles about it, not the ones that only mentio
 });
 
 test("a story page names the topics of its reports", async () => {
-  const launch = await story(`智能体框架 V2 发布 ${T}`);
-  await report({ source: OFFICIAL, at: hoursAgo(26), title: `智能体框架 V2 发布 ${T}`, tags: ["VR"], fact: await fact(launch.id, "发布 V2") });
-  assert.deepEqual(await topicsOfStory(launch.id), [{ slug: "vr", name: "VR" }, { slug: "releases", name: "新作发售" }]);
+  const launch = await story(`智慧體框架 V2 釋出 ${T}`);
+  await report({ source: OFFICIAL, at: hoursAgo(26), title: `智慧體框架 V2 釋出 ${T}`, tags: ["VR"], fact: await fact(launch.id, "釋出 V2") });
+  assert.deepEqual(await topicsOfStory(launch.id), [{ slug: "vr", name: "VR" }, { slug: "releases", name: "新作發售" }]);
 });
 
 test("withdrawn articles stay out of lists and counts", async () => {
-  const kept = await report({ at: hoursAgo(5), title: `Kimi 发布新模型 ${T}`, subjects: ["moodyz"] });
-  const withdrawn = await report({ at: hoursAgo(4), title: `Kimi 撤回的消息 ${T}`, subjects: ["moodyz"] });
+  const kept = await report({ at: hoursAgo(5), title: `Kimi 釋出新模型 ${T}`, subjects: ["moodyz"] });
+  const withdrawn = await report({ at: hoursAgo(4), title: `Kimi 撤回的訊息 ${T}`, subjects: ["moodyz"] });
   await sql`UPDATE publications SET visibility = 'withdrawn' WHERE article_id = ${withdrawn}`;
 
   const data = await page("moodyz");
   assert.deepEqual(ids(data.items), [kept]);
   assert.equal(data.topic.total, 1);
   const summary = (await listTopicSummaries()).topics.find((t) => t.slug === "moodyz")!;
-  assert.equal(summary.latest?.title, `Kimi 发布新模型 ${T}`, "the index shows the newest public article");
+  assert.equal(summary.latest?.title, `Kimi 釋出新模型 ${T}`, "the index shows the newest public article");
 });
 
 test("every topic has a page; unknown topics and pages past the end have none", async () => {

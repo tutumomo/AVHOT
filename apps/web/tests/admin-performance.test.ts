@@ -28,7 +28,7 @@ const api = createServer(async (req, res) => {
     res.statusCode = 401;
     return res.end(JSON.stringify({ detail: "unauthorized" }));
   }
-  if (url.pathname === "/api/admin/me") return res.end(JSON.stringify({ name: "后台性能检查", csrf: "fixture", dev: true }));
+  if (url.pathname === "/api/admin/me") return res.end(JSON.stringify({ name: "後臺效能檢查", csrf: "fixture", dev: true }));
   if (url.pathname === "/api/admin/nav-counts") {
     await badgeGate;
     res.statusCode = badgeFailure ? 503 : 200;
@@ -71,7 +71,7 @@ test("admin HTML and navigation begin before delayed badges while remaining priv
       assert.equal(early.headers.get("Cache-Control"), "private, no-store");
       assert.equal(early.headers.get("X-Accel-Buffering"), "no");
       const first = await early.body!.getReader().read();
-      assert.match(new TextDecoder().decode(first.value), /内容诊断|routes\/admin\/content/);
+      assert.match(new TextDecoder().decode(first.value), /內容診斷|routes\/admin\/content/);
     } finally {
       clearTimeout(timer);
       resumeBadges();
@@ -101,8 +101,8 @@ test("both admin navigations render before badges and update them after arriving
       await expect(sources).toHaveText("信源7");
       badge = 19;
       holdBadges();
-      await page.getByRole("link", { name: "内容诊断", exact: true }).filter({ visible: true }).click();
-      await expect(page.getByRole("heading", { name: "内容诊断", exact: true })).toBeVisible({ timeout: 1000 });
+      await page.getByRole("link", { name: "內容診斷", exact: true }).filter({ visible: true }).click();
+      await expect(page.getByRole("heading", { name: "內容診斷", exact: true })).toBeVisible({ timeout: 1000 });
       resumeBadges();
       await expect(sources).toHaveText("信源19");
       badgeFailure = true;

@@ -10,7 +10,7 @@ import { closeDb, sql } from "@aihot/backend/db";
 import { sha256 } from "@aihot/backend/lib/ids";
 
 const T = `recall-cache-${tag()}`;
-const savedBackground = '正文'.repeat(3500) + '阅读背景后半部证据' + '正文'.repeat(2000) + '上限之外';
+const savedBackground = '正文'.repeat(3500) + '閱讀背景後半部證據' + '正文'.repeat(2000) + '上限之外';
 const provider = await stub((_hit, req) => ({ data: (JSON.parse(req.body).input as string[])
   .map((_text, index) => ({ index, embedding: [1, 0] })) }));
 const env = { ...process.env, EMBEDDING_MODEL: T, EMBEDDING_DIMS: "0",
@@ -73,7 +73,7 @@ test("fact and reading recall agree across cold, full and overflowing vector cac
   assert.equal(cold.facts[0]!.score, 1);
   assert.ok(Math.abs(cold.facts[1]!.score - 0.8) < 1e-6);
   assert.equal(cold.background.length, 1);
-  assert.ok(cold.background[0]!.sourceText?.includes('阅读背景后半部证据'));
+  assert.ok(cold.background[0]!.sourceText?.includes('閱讀背景後半部證據'));
   assert.ok(!cold.background[0]!.sourceText?.includes('上限之外'));
   for (const size of [29_999, 30_000]) await t.test(`initial cache size ${size}`, async () => {
     assert.deepEqual(await run(size), cold);

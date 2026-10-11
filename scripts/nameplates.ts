@@ -31,19 +31,19 @@ const S = SITE.subject;
 const NAMEPLATES: Record<string, Array<{ text: string; accent: boolean }>> = {
   daily: [
     { text: S, accent: true },
-    { text: "日报", accent: false },
+    { text: "日報", accent: false },
   ],
   weekly: [
     { text: S, accent: true },
-    { text: "周报", accent: false },
+    { text: "週報", accent: false },
   ],
   monthly: [
     { text: S, accent: true },
-    { text: "月报", accent: false },
+    { text: "月報", accent: false },
   ],
   archive: [
-    { text: "日报", accent: false },
-    { text: "合订本", accent: true },
+    { text: "日報", accent: false },
+    { text: "合訂本", accent: true },
   ],
 };
 

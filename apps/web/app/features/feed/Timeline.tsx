@@ -45,7 +45,7 @@ export function DayHeader({ day, today, count, collapsed, onToggle, aside }: { d
         {aside}
         {count !== null && (
           <span>
-            <span className="num">{count}</span> 条
+            <span className="num">{count}</span> 條
           </span>
         )}
         {onToggle && <IconChevronDown size={15} className={`transition-transform duration-200 ${collapsed ? "-rotate-90" : ""}`} />}
@@ -56,7 +56,7 @@ export function DayHeader({ day, today, count, collapsed, onToggle, aside }: { d
     <div className="bleed sticky top-[var(--bar-h)] z-20 bg-daybar lg:mx-0 lg:bg-bg lg:px-0">
       {/* Phones: a full-width day bar; on the timeline the whole bar folds the day. */}
       {onToggle ? (
-        <button type="button" onClick={onToggle} aria-expanded={!collapsed} aria-label={`${collapsed ? "展开" : "收起"}${date}`} className="flex h-11 w-full items-center gap-2 text-left lg:hidden">
+        <button type="button" onClick={onToggle} aria-expanded={!collapsed} aria-label={`${collapsed ? "展開" : "收起"}${date}`} className="flex h-11 w-full items-center gap-2 text-left lg:hidden">
           {phoneRow}
         </button>
       ) : (
@@ -76,7 +76,7 @@ export function DayHeader({ day, today, count, collapsed, onToggle, aside }: { d
             type="button"
             onClick={onToggle}
             aria-expanded={!collapsed}
-            aria-label={collapsed ? `展开${date}` : `收起${date}`}
+            aria-label={collapsed ? `展開${date}` : `收起${date}`}
             className="grid size-6 place-items-center justify-self-center rounded-full text-ink-4 transition-colors hover:bg-bg-sunk hover:text-ink"
           >
             <IconChevronDown size={14} className={`transition-transform duration-200 ${collapsed ? "-rotate-90" : ""}`} />
@@ -87,7 +87,7 @@ export function DayHeader({ day, today, count, collapsed, onToggle, aside }: { d
           {count !== null && (
             <>
               {" · "}
-              <span className="num">{count}</span> 条
+              <span className="num">{count}</span> 條
             </>
           )}
         </span>
@@ -282,7 +282,7 @@ export function Timeline({ initial, filters }: { initial: TimelineResponse; filt
     <div className="relative">
       {days.length === 0 && (
         <div className="lg:card">
-          <EmptyState title="这个筛选下还没有精选内容">换个类别看看，或者去全部动态里找找。</EmptyState>
+          <EmptyState title="這個篩選下還沒有精選內容">換個類別看看，或者去全部動態裡找找。</EmptyState>
         </div>
       )}
 
@@ -321,20 +321,20 @@ function FeedEnd({ loading, error, hasMore, manual, empty, onMore }: { loading: 
     <div className="flex justify-center py-6">
       {loading ? (
         <span className="inline-flex items-center gap-2 text-[12.5px] text-ink-4">
-          <RingMark className="size-4 text-accent" spinning /> 正在加载
+          <RingMark className="size-4 text-accent" spinning /> 正在載入
         </span>
       ) : error ? (
         <button type="button" onClick={onMore} className="h-9 rounded-full border border-hot/30 px-4 text-[13px] text-hot hover:bg-hot-soft">
-          加载失败，点此重试
+          載入失敗，點此重試
         </button>
       ) : hasMore ? (
         manual && (
           <button type="button" onClick={onMore} className="h-9 rounded-full border border-line-strong bg-surface px-5 text-[13px] font-medium text-ink-2 transition-colors hover:border-ink-4 hover:text-ink">
-            加载更多
+            載入更多
           </button>
         )
       ) : (
-        !empty && <span className="text-[12px] text-ink-4">已经到底了</span>
+        !empty && <span className="text-[12px] text-ink-4">已經到底了</span>
       )}
     </div>
   );

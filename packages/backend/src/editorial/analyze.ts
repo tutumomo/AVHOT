@@ -101,9 +101,9 @@ export function buildScoreInput(a: AnalyzeInputArticle): string {
   if (!body) body = a.title;
   const at = a.publishedAt;
   return [
-    "请按系统规则评估以下单篇材料所代表的事件。只输出 attentionScore。",
-    `【发布时间（北京时间）】\n${at ? scoreInputTime(at) : "未知（收录时间不代表发布时间）"}`,
-    `【标题】\n${a.title.trim()}`,
+    "請按系統規則評估以下單篇材料所代表的事件。只輸出 attentionScore。",
+    `【釋出時間（北京時間）】\n${at ? scoreInputTime(at) : "未知（收錄時間不代表釋出時間）"}`,
+    `【標題】\n${a.title.trim()}`,
     `【完整正文】\n${body.length > MAX_BODY_CHARS ? body.slice(0, MAX_BODY_CHARS) : body}`,
   ].join("\n\n");
 }
@@ -396,9 +396,9 @@ async function mendWording(a: AnalyzeInputArticle, w: NonNullable<AnalysisRun["w
     res = await chatJson({
       model: await modelFor("wording"), purpose: "mend_wording", subject: subjectOf(a), promptVersion: PROMPT_VERSIONS.wording, system: MEND_SYSTEM,
       user: [
-        `来源：${t.sourceName ?? "（未注明）"}`, `原题：${t.title}`,
+        `來源：${t.sourceName ?? "（未註明）"}`, `原題：${t.title}`,
         `中文稿：\n${JSON.stringify({ titleZh: w.titleZh, summaryZh: w.summaryZh, reasonZh: w.reasonZh })}`,
-        `问题：\n${problems.map((p) => `- ${p}`).join("\n")}`,
+        `問題：\n${problems.map((p) => `- ${p}`).join("\n")}`,
       ].join("\n\n"),
       schema: MendSchema, temperature: 0.1, maxTokens: 2048, attemptTag: tagged(opts.attemptTag, "wording"),
     });

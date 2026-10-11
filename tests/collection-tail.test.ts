@@ -37,7 +37,7 @@ const server = http.createServer((req, res) => {
     res.end(listing.items.map(i => `<article><a href="${escape(i.url)}">${escape(i.title)}</a>${i.date ? `<time datetime="${i.date}"></time>` : ""}</article>`).join(""));
   } else {
     res.writeHead(200, { "content-type": "application/rss+xml", etag });
-    res.end(`<rss version="2.0"><channel><title>测试订阅</title>${listing.items.map(i =>
+    res.end(`<rss version="2.0"><channel><title>測試訂閱</title>${listing.items.map(i =>
       `<item><title>${escape(i.title)}</title><link>${escape(i.url)}</link>${i.date ? `<pubDate>${new Date(i.date).toUTCString()}</pubDate>` : ""}<description>${escape(i.summary)}</description><category>${escape(i.category ?? "keep")}</category></item>`).join("")}</channel></rss>`);
   }
 });
@@ -48,7 +48,7 @@ after(async () => { await new Promise<void>(resolve => server.close(() => resolv
 
 function items(name: string, count: number): Item[] {
   return Array.from({ length: count }, (_, i) => ({
-    url: `${base}/article/${T}-${name}/${i}`, title: `测试文章 ${name} ${i}`, date: new Date(Date.now() - i * 1000).toISOString(), summary: `摘要 ${name} ${i}`,
+    url: `${base}/article/${T}-${name}/${i}`, title: `測試文章 ${name} ${i}`, date: new Date(Date.now() - i * 1000).toISOString(), summary: `摘要 ${name} ${i}`,
   }));
 }
 async function source(name: string, kind: Kind, rows: Item[], extra: Record<string, unknown> = {}, initialized = true) {
@@ -60,7 +60,7 @@ async function source(name: string, kind: Kind, rows: Item[], extra: Record<stri
     ? { url: base + path, titlePaths: ["title"], urlTemplate: "{raw:url}", publishedAtPath: "date", summaryPaths: ["summary"], summaryIsBody: true }
     : { url: base + path, itemSelector: "article", linkSelector: "a", publishedAtSelector: "time" };
   await sql`INSERT INTO sources (id,name,kind,config,tier,participation_mode,cursor,next_fetch_at)
-    VALUES (${id},'列表尾部测试',${kind},${sql.json({ ...mapping, ...extra } as never)},'T1','editorial',
+    VALUES (${id},'列表尾部測試',${kind},${sql.json({ ...mapping, ...extra } as never)},'T1','editorial',
       ${initialized ? sql.json({ initializedAt: new Date().toISOString() }) : null},'2100-01-01')`;
   return { id, listing };
 }
@@ -122,7 +122,7 @@ test("with the first 60 known, the tail is still created and revised, and queued
   // The first job is done: the revision must queue processing again.
   await sql`DELETE FROM pgboss.job WHERE data->>'articleId'=${tail!.id}`;
   await sql`UPDATE articles SET processing_queued_at=NULL WHERE id=${tail!.id}`;
-  rows[60] = { ...rows[60]!, title: "尾部修订后的标题", summary: "尾部修订后的正文" };
+  rows[60] = { ...rows[60]!, title: "尾部修訂後的標題", summary: "尾部修訂後的正文" };
   const revised = await collectSource(id);
   assert.deepEqual([revised.status, revised.created, revised.revised], ["ok", 0, 1]);
   const [saved] = await sql`SELECT title,body_text,revision,processing_queued_at FROM articles WHERE id=${tail!.id}`;
@@ -199,9 +199,9 @@ test("a listing repairs an existing old article without admitting a new old arch
 
 test("in the tail an alias of a known URL keeps the first record, and URL, category and noise filters still apply", async () => {
   const rows = items("filters", 60);
-  rows.push({ ...rows[0]!, url: rows[0]!.url + "?utm_source=tail", title: "不应覆盖首次标题" });
+  rows.push({ ...rows[0]!, url: rows[0]!.url + "?utm_source=tail", title: "不應覆蓋首次標題" });
   rows.push(...items("filters-tail", 5));
-  rows[62]!.title = "noise 排除条目";
+  rows[62]!.title = "noise 排除條目";
   rows[63]!.url = `${base}/denied/${T}`;
   rows[64]!.category = "drop";
   rows[65]!.url = `${base}/outside/${T}`;

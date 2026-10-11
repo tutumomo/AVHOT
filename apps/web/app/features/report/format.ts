@@ -7,7 +7,7 @@ import { monthDay, weekdayShort } from "../../lib/format.ts";
 
 export const KINDS: ReportKind[] = ["daily", "weekly", "monthly"];
 export const KIND_PATH: Record<ReportKind, string> = { daily: "/daily", weekly: "/weekly", monthly: "/monthly" };
-export const KIND_LABEL: Record<ReportKind, string> = { daily: "日报", weekly: "周报", monthly: "月报" };
+export const KIND_LABEL: Record<ReportKind, string> = { daily: "日報", weekly: "週報", monthly: "月報" };
 
 export function kindFromPath(pathname: string): ReportKind {
   if (pathname.startsWith("/weekly")) return "weekly";
@@ -30,8 +30,8 @@ export const ENTRIES_UNIT = `${measure}${noun}`;
 
 /** "这一天的 4 件 AI 大事" / "本周的 12 件 AI 大事" / "8 月的 20 件 AI 大事" (the subject and REPORTS.entry from site/site.ts). */
 export function headline(kind: ReportKind, key: string, count: number): string {
-  if (kind === "daily") return subjectAfter(`这一天的 ${count} ${measure}`, noun);
-  if (kind === "weekly") return subjectAfter(`本周的 ${count} ${measure}`, noun);
+  if (kind === "daily") return subjectAfter(`這一天的 ${count} ${measure}`, noun);
+  if (kind === "weekly") return subjectAfter(`本週的 ${count} ${measure}`, noun);
   return subjectAfter(`${Number(key.slice(5, 7))} 月的 ${count} ${measure}`, noun);
 }
 
@@ -115,7 +115,7 @@ export function dateMark(kind: ReportKind, key: string): { figure: string; top: 
 }
 
 /** When each kind comes out, for the masthead (the times are the site's, EDITION_WHEN). */
-export const EDITION: Record<ReportKind, string> = { daily: `${EDITION_WHEN.daily} 出刊`, weekly: "每周一出刊", monthly: "每月 1 日出刊" };
+export const EDITION: Record<ReportKind, string> = { daily: `${EDITION_WHEN.daily} 出刊`, weekly: "每週一齣刊", monthly: "每月 1 日出刊" };
 
 /**
  * The masthead's figures, in the order a reader wants them, in the site's words (REPORTS). Releases of the
@@ -137,7 +137,7 @@ export function metricItems(metrics: Record<string, number>): Array<{ value: num
 
 /** "前一日 · 9月25日", "上一期 · 第 37 周", "下一期 · 7 月". */
 export function neighbourLabel(kind: ReportKind, key: string, direction: "prev" | "next"): string {
-  if (kind === "daily") return `${direction === "prev" ? "前一日" : "后一日"} · ${monthDay(key)}`;
+  if (kind === "daily") return `${direction === "prev" ? "前一日" : "後一日"} · ${monthDay(key)}`;
   const which = direction === "prev" ? "上一期" : "下一期";
   return kind === "weekly" ? `${which} · 第 ${Number(key.slice(6))} 周` : `${which} · ${Number(key.slice(5, 7))} 月`;
 }
@@ -158,7 +158,7 @@ export function dateLine(kind: ReportKind, key: string): string {
 }
 
 /** What each kind is, under its nameplate. */
-export const MOTTO: Record<ReportKind, string> = { daily: `${REPORTS.motto} · 每日要闻`, weekly: `${REPORTS.motto} · 每周综述`, monthly: `${REPORTS.motto} · 每月盘点` };
+export const MOTTO: Record<ReportKind, string> = { daily: `${REPORTS.motto} · 每日要聞`, weekly: `${REPORTS.motto} · 每週綜述`, monthly: `${REPORTS.motto} · 每月盤點` };
 
 export interface PeriodCell {
   key: string | null;

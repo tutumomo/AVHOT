@@ -44,23 +44,23 @@ const provider = await stub((_hit, req) => {
   const marker = MARKERS.find((m) => user.includes(m)) ?? "";
   requests.push({ step, marker, user });
   const answer = (content: unknown) => ({ id: `stub-${requests.length}`, model: "stub", choices: [{ message: { content: typeof content === "string" ? content : JSON.stringify(content) } }], usage: { prompt_tokens: 10, completion_tokens: 5, total_tokens: 15 } });
-  if (step === "prefilter") return answer({ label: marker === "OFFTOPIC" || marker === "BARE" ? "BLOCK" : marker === "VAGUE" ? "UNKNOWN" : "PASS", reason: "测试" });
+  if (step === "prefilter") return answer({ label: marker === "OFFTOPIC" || marker === "BARE" ? "BLOCK" : marker === "VAGUE" ? "UNKNOWN" : "PASS", reason: "測試" });
   if (step === "score") return answer({ attentionScore: scoreAnswers[marker]!.shift() });
   // Copy with a word a site keeps from readers (added to the pack's list below), and its mended form: whole (WORDY),
   // refused by the provider, with a number changed, or with as many such words as before.
-  if (step === "understand" && WORDY.includes(marker)) return answer({ itemType: ITEM_TYPES[0], authorRole: "principal", tags: [], editorialJudgment: `理由里有禁用词 ${marker}`, titleZh: `标题里有禁用词 ${marker}`, summaryZh: `${marker} 的摘要。第二句补充 3 个数字。` });
+  if (step === "understand" && WORDY.includes(marker)) return answer({ itemType: ITEM_TYPES[0], authorRole: "principal", tags: [], editorialJudgment: `理由裡有停用詞 ${marker}`, titleZh: `標題裡有停用詞 ${marker}`, summaryZh: `${marker} 的摘要。第二句補充 3 個數字。` });
   // A refusal in a provider's own words: each provider words its own, and the same request would meet it again.
   if (step === "wording" && marker === "REFUSAL") return new Reply(400, { error: { message: "request refused", type: "invalid_request_error" } });
   if (step === "wording") {
-    const unmended = marker === "UNMENDED" ? "有禁用词" : "换了说法";
-    return answer({ titleZh: `标题里${unmended} ${marker}`, summaryZh: `${marker} 的摘要。第二句补充 ${marker === "RENUMBER" ? 4 : 3} 个数字。`, reasonZh: `理由里${unmended} ${marker}` });
+    const unmended = marker === "UNMENDED" ? "有停用詞" : "換了說法";
+    return answer({ titleZh: `標題裡${unmended} ${marker}`, summaryZh: `${marker} 的摘要。第二句補充 ${marker === "RENUMBER" ? 4 : 3} 個數字。`, reasonZh: `理由裡${unmended} ${marker}` });
   }
   if (step === "understand") {
-    if (marker === "SENSITIVE") return new Reply(400, { contentFilter: [{ level: 1, role: "user" }], error: { code: "1301", message: "系统检测到输入或生成内容可能包含不安全或敏感内容" } });
-    return answer({ itemType: "new_release", authorRole: "principal", tags: ["新作情报", "系列作品", "VR", "不存在的标签"], editorialJudgment: `理由 ${marker}`, titleZh: `理解标题 ${marker}`, summaryZh: `理解摘要 ${marker}。第二句补充一个关键数字。` });
+    if (marker === "SENSITIVE") return new Reply(400, { contentFilter: [{ level: 1, role: "user" }], error: { code: "1301", message: "系統檢測到輸入或生成內容可能包含不安全或敏感內容" } });
+    return answer({ itemType: "new_release", authorRole: "principal", tags: ["新作情報", "系列作品", "VR", "不存在的標籤"], editorialJudgment: `理由 ${marker}`, titleZh: `理解標題 ${marker}`, summaryZh: `理解摘要 ${marker}。第二句補充一個關鍵數字。` });
   }
-  if (step === "structure") return answer({ category: "new-releases", tags: ["新作情报", "VR"], subjects: ["s1", "unknown-co"], scope: "single", fact: { title: `事实 ${marker}`, subject: "某公司", action: "发布", object: "模型", occurredAt: null, evidence: "a lab released a model", conditions: [] } });
-  return answer(`title_zh: 翻译标题 ${marker}\nsummary_zh: 翻译摘要 ${marker}。第二句补充影响。`);
+  if (step === "structure") return answer({ category: "new-releases", tags: ["新作情報", "VR"], subjects: ["s1", "unknown-co"], scope: "single", fact: { title: `事實 ${marker}`, subject: "某公司", action: "釋出", object: "模型", occurredAt: null, evidence: "a lab released a model", conditions: [] } });
+  return answer(`title_zh: 翻譯標題 ${marker}\nsummary_zh: 翻譯摘要 ${marker}。第二句補充影響。`);
 });
 pointModels(provider.url);
 
@@ -94,28 +94,28 @@ test("a selected item: prefilter, two scores, the content understanding and the 
   assert.deepEqual([res!.output!.selected, res!.output!.score], [true, T1 + 1], `${T1 + 3} + ${T1 - 1} >= 2 × ${T1}; the mean is shown`);
   assert.deepEqual(calls("CLEAR").sort(), ["prefilter", "score", "score", "structure", "understand"]);
   const r = await row(id);
-  assert.deepEqual([r.title_zh, r.reason_zh, r.category, r.receipt_ids.length], ["理解标题 CLEAR", "理由 CLEAR", "new-releases", 5]);
+  assert.deepEqual([r.title_zh, r.reason_zh, r.category, r.receipt_ids.length], ["理解標題 CLEAR", "理由 CLEAR", "new-releases", 5]);
   // Failure case: the writer's independent labels contradict the structural category.
-  assert.deepEqual(r.tags, ["新作情报", "VR", "S1"], "category and tags come from the same structural judgement, plus the verified subject tag");
+  assert.deepEqual(r.tags, ["新作情報", "VR", "S1"], "category and tags come from the same structural judgement, plus the verified subject tag");
   assert.deepEqual(r.subjects, ["s1"]);
-  assert.deepEqual([r.output.writer, r.output.itemType, r.output.prefilter.label, r.output.fact.title], ["understand", "new_release", "PASS", "事实 CLEAR"]);
+  assert.deepEqual([r.output.writer, r.output.itemType, r.output.prefilter.label, r.output.fact.title], ["understand", "new_release", "PASS", "事實 CLEAR"]);
   assert.equal(r.output.scope, "single");
   assert.equal(r.output.fact.evidence, "a lab released a model");
   const score = requests.find((q) => q.marker === "CLEAR" && q.step === "score")!;
-  assert.match(score.user, /【标题】\nCLEAR model release/, "the score reads the original title, before any writing");
+  assert.match(score.user, /【標題】\nCLEAR model release/, "the score reads the original title, before any writing");
 });
 
 test("a word the site keeps from readers goes back once to be changed; copy without one is not sent", async () => {
   // A word only this test bans: the pack's list is the site's own (empty in the template).
-  (READER_WORDING as Array<readonly [RegExp, string]>).push([/禁用词/u, "换一个说法"]);
+  (READER_WORDING as Array<readonly [RegExp, string]>).push([/停用詞/u, "換一個說法"]);
   try {
     const id = await article("WORDY");
     await analyzeArticle(id);
     assert.equal(calls("WORDY").filter((s) => s === "wording").length, 1);
     const r = await row(id);
-    assert.deepEqual([r.title_zh, r.reason_zh], ["标题里换了说法 WORDY", "理由里换了说法 WORDY"], "the mended copy is stored");
+    assert.deepEqual([r.title_zh, r.reason_zh], ["標題裡換了說法 WORDY", "理由裡換了說法 WORDY"], "the mended copy is stored");
     const sent = requests.find((q) => q.marker === "WORDY" && q.step === "wording")!;
-    assert.ok(sent.user.includes("标题用了“禁用词”") && sent.user.includes(`${ITEM_COPY.reasonLabel}用了“禁用词”`), "each use named");
+    assert.ok(sent.user.includes("標題用了“停用詞”") && sent.user.includes(`${ITEM_COPY.reasonLabel}用了“停用詞”`), "each use named");
     assert.ok(!requests.some((q) => q.step === "wording" && q.marker !== "WORDY"), "the other items' copy uses none");
   } finally {
     (READER_WORDING as Array<readonly [RegExp, string]>).pop();
@@ -123,13 +123,13 @@ test("a word the site keeps from readers goes back once to be changed; copy with
 });
 
 test("the first copy stands when the provider refuses the mend, the mend changes a number or leaves as many such words", async () => {
-  (READER_WORDING as Array<readonly [RegExp, string]>).push([/禁用词/u, "换一个说法"]);
+  (READER_WORDING as Array<readonly [RegExp, string]>).push([/停用詞/u, "換一個說法"]);
   try {
     for (const marker of ["REFUSAL", "RENUMBER", "UNMENDED"]) {
       const id = await article(marker);
       await analyzeArticle(id);
       const r = await row(id);
-      assert.deepEqual([r.title_zh, r.reason_zh], [`标题里有禁用词 ${marker}`, `理由里有禁用词 ${marker}`], `${marker}: the first copy is stored`);
+      assert.deepEqual([r.title_zh, r.reason_zh], [`標題裡有停用詞 ${marker}`, `理由裡有停用詞 ${marker}`], `${marker}: the first copy is stored`);
       assert.equal(calls(marker).filter((s) => s === "wording").length, 1, `${marker}: mended once`);
       const [receipt] = await sql<{ status: string }[]>`SELECT status FROM receipts WHERE purpose = 'mend_wording' AND subject LIKE ${`article:${id}@%`}`;
       assert.equal(receipt!.status, marker === "REFUSAL" ? "failed" : "completed", `${marker}: the mend's receipt`);
@@ -143,17 +143,17 @@ test("structure retains grounded conditions, rejects invented or unseen quotes, 
   const input = (await loadAnalyzeInput(await article("CONDITIONS", {
     bodyText: "Preview is free for Pro users until October 10.\n" + "x".repeat(11000) + "\nOnly available in the US. " + "x".repeat(MAX_BODY_CHARS) + "This late detail was not sent.",
   })))!;
-  input.translationZh = "仅中文译文中出现的限制";
-  const frame = { title: "预览上线", evidence: "Preview is free for Pro users until October 10.", conditions: [
-    { text: "仅Pro用户，免费至10月10日", quote: "Preview is free for Pro users until October 10." },
-    { text: "仅限美国", quote: "Only available in the US." },
-    { text: "无限免费", quote: "Unlimited free access for everyone." },
-    { text: "不在模型输入里的句子", quote: "This late detail was not sent." },
+  input.translationZh = "僅中文譯文中出現的限制";
+  const frame = { title: "預覽上線", evidence: "Preview is free for Pro users until October 10.", conditions: [
+    { text: "僅Pro使用者，免費至10月10日", quote: "Preview is free for Pro users until October 10." },
+    { text: "僅限美國", quote: "Only available in the US." },
+    { text: "無限免費", quote: "Unlimited free access for everyone." },
+    { text: "不在模型輸入裡的句子", quote: "This late detail was not sent." },
   ] };
   const base = { category: "new-releases", tags: [], subjects: [], fact: frame };
   const out = normalizeStructure(StructureSchema.parse(base), input);
   assert.ok(buildMaterial(input).includes("Only available in the US."), "a condition after the old 7000-character cutoff reaches the model");
-  assert.ok(buildMaterial(input).includes("后文未提供"));
+  assert.ok(buildMaterial(input).includes("後文未提供"));
   assert.equal(out.scope, "unknown", "an older result with a fact is not proof of single scope");
   assert.deepEqual(out.fact?.conditions, frame.conditions.slice(0, 2));
   assert.equal(out.fact?.evidence, frame.evidence);
@@ -164,7 +164,7 @@ test("structure retains grounded conditions, rejects invented or unseen quotes, 
   ] } }), input);
   assert.deepEqual(partial.fact?.conditions, [{ text: "Only available in the US.", quote: "Only available in the US." }],
     "an invalid sibling cannot discard a valid original condition; spliced quotes remain rejected");
-  const invented = normalizeStructure(StructureSchema.parse({ ...base, fact: { ...frame, evidence: input.source.name, conditions: [{ text: "翻译限制", quote: input.translationZh }] } }), input);
+  const invented = normalizeStructure(StructureSchema.parse({ ...base, fact: { ...frame, evidence: input.source.name, conditions: [{ text: "翻譯限制", quote: input.translationZh }] } }), input);
   assert.equal(invented.fact?.evidence, null, "source metadata is not original evidence");
   assert.deepEqual(invented.fact?.conditions, [], "a translation does not count as an original quote");
   assert.equal(normalizeStructure(StructureSchema.parse({ ...base, scope: "composite" }), input).fact, null, "composite output cannot also claim one fact");
@@ -178,9 +178,9 @@ test("a near-selected item is written like a selected one; below the floor it is
   assert.deepEqual([near!.output!.selected, near!.output!.reasonZh], [false, "理由 RESCUE"], `${FLOOR + 1} + ${FLOOR} > 2 × ${FLOOR}`);
   const lowId = await article("LOW");
   const low = await analyzeArticle(lowId);
-  assert.deepEqual([low!.output!.selected, low!.output!.titleZh, low!.output!.reasonZh], [false, "翻译标题 LOW", null]);
+  assert.deepEqual([low!.output!.selected, low!.output!.titleZh, low!.output!.reasonZh], [false, "翻譯標題 LOW", null]);
   assert.deepEqual(calls("LOW").sort(), ["prefilter", "score", "score", "structure", "summarize"]);
-  assert.deepEqual((await row(lowId)).tags, ["新作情报", "VR", "S1"], "structure tags");
+  assert.deepEqual((await row(lowId)).tags, ["新作情報", "VR", "S1"], "structure tags");
 });
 
 test("the prefilter's BLOCK stops everything; UNKNOWN with material goes on like PASS", async () => {
@@ -190,7 +190,7 @@ test("the prefilter's BLOCK stops everything; UNKNOWN with material goes on like
   // An UNKNOWN with material is judged and written like a PASS, up to 精选 (T1 + T1 + 2 ≥ 2 × T1).
   const vagueId = await article("VAGUE");
   const vague = await analyzeArticle(vagueId);
-  assert.deepEqual([vague!.output!.relevance, vague!.output!.selected, vague!.output!.titleZh], ["pass", true, "理解标题 VAGUE"]);
+  assert.deepEqual([vague!.output!.relevance, vague!.output!.selected, vague!.output!.titleZh], ["pass", true, "理解標題 VAGUE"]);
   assert.equal((await row(vagueId)).output.prefilter.label, "UNKNOWN", "the prefilter's own answer stays on record");
   // Nothing but a title and no page to fetch: the BLOCK counts as UNKNOWN and waits for material.
   const bare = await analyzeArticle(await article("BARE", { bodyText: null, excerpt: null, bodyStatus: "none" }));
@@ -217,30 +217,30 @@ test("a feed summary alone: the article page is fetched first, then the whole ar
 
 test("a short post in Chinese is its own copy; a content-filter refusal is translated instead", async () => {
   // The tag rides as a hashtag, which the language check strips.
-  const text = `推文：今天把智能体接进了工作流，效果不错。#t${T}`;
+  const text = `推文：今天把智慧體接進了工作流，效果不錯。#t${T}`;
   const { articleId } = await upsertMaterial({
     sourceId: X_SOURCE, url: `https://x.com/test/status/1${Date.now()}`, title: text, via: "fetch", publishedAt: new Date(),
-    xPost: { tweetId: `1${Date.now()}`, authorName: "测试", handle: "test", text },
+    xPost: { tweetId: `1${Date.now()}`, authorName: "測試", handle: "test", text },
   });
   const post = await analyzeArticle(articleId);
   assert.deepEqual([post!.output!.titleZh, post!.output!.summaryZh], [text, text]);
   assert.ok(!calls("推文").includes("summarize"), "no translation call");
   const sensitive = await analyzeArticle(await article("SENSITIVE"));
-  assert.deepEqual([sensitive!.output!.selected, sensitive!.output!.titleZh], [true, "翻译标题 SENSITIVE"]);
+  assert.deepEqual([sensitive!.output!.selected, sensitive!.output!.titleZh], [true, "翻譯標題 SENSITIVE"]);
   assert.deepEqual(calls("SENSITIVE").filter((s) => s === "understand" || s === "summarize"), ["understand", "summarize"]);
 });
 
 test("guards: a company the input does not name is not written in; long summaries are cut at sentences", () => {
-  const input = { title: "某片商公布新作", text: "某片商公布了一部新作，发售日和价格都有说明。", sourceKind: "rss" };
-  const guarded = enforceIdentity(input, { titleZh: "S1 公布新作", summaryZh: "某片商公布新作。" });
-  assert.deepEqual([guarded.titleZh, guarded.summaryZh, guarded.identityGuard.outcome], ["某片商公布新作", "某片商公布新作。", "fallback"]);
+  const input = { title: "某片商公佈新作", text: "某片商公佈了一部新作，發售日和價格都有說明。", sourceKind: "rss" };
+  const guarded = enforceIdentity(input, { titleZh: "S1 公佈新作", summaryZh: "某片商公佈新作。" });
+  assert.deepEqual([guarded.titleZh, guarded.summaryZh, guarded.identityGuard.outcome], ["某片商公佈新作", "某片商公佈新作。", "fallback"]);
   // The identity lexicon: a Chinese rendering of a company the input names in English is no invention.
   const hokuto = { title: "Hokuto ships a new label", text: "Hokuto released a new label with pricing details.", sourceKind: "rss" };
-  assert.equal(enforceIdentity(hokuto, { titleZh: "北都发布新厂牌", summaryZh: "北都发布了新厂牌并公布价格。" }).identityGuard.outcome, "pass");
-  const long = "第一句交代了谁做了什么以及关键结果，这一句本身已经足够说明核心事件的来龙去脉。".repeat(3) + "第二句补充数字。".repeat(20);
+  assert.equal(enforceIdentity(hokuto, { titleZh: "北都發布新廠牌", summaryZh: "北都發布了新廠牌並公佈價格。" }).identityGuard.outcome, "pass");
+  const long = "第一句交代了誰做了什麼以及關鍵結果，這一句本身已經足夠說明核心事件的來龍去脈。".repeat(3) + "第二句補充數字。".repeat(20);
   assert.ok(compactAnswerFirstSummary(long).length <= 190);
-  assert.deepEqual(parseTranslateOutput("title_zh: 标题\nsummary_zh: 第一句。\n第二句。"), { titleZh: "标题", summaryZh: "第一句。\n第二句。", bodyZh: "" });
-  assert.equal(parseTranslateOutput("title_zh: 标题\nbody_zh: 我们懂你。\n\n来源：X：PixVerse (@PixVerse)").bodyZh, "我们懂你。", "a repeated prompt line is dropped");
+  assert.deepEqual(parseTranslateOutput("title_zh: 標題\nsummary_zh: 第一句。\n第二句。"), { titleZh: "標題", summaryZh: "第一句。\n第二句。", bodyZh: "" });
+  assert.equal(parseTranslateOutput("title_zh: 標題\nbody_zh: 我們懂你。\n\n來源：X：PixVerse (@PixVerse)").bodyZh, "我們懂你。", "a repeated prompt line is dropped");
 });
 
 test("analysing the same revision again reuses every paid answer", async () => {

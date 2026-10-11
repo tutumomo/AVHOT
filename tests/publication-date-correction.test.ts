@@ -28,8 +28,8 @@ async function fixture(independent=false){
   const {articleId:id}=await upsertMaterial({sourceId:source,url:`https://example.test/${tag()}`,title:'保留原文',bodyText:'A verified body',bodyStatus:'ok',via:'import',publishedAt:new Date(old),discoveredAt:new Date(old)});
   await sql`UPDATE articles SET backfill=false,backfill_reason=NULL,processing_state='analyzed',grouping_status='complete',grouped_at=now(),
     timeline_at=${new Date(independent?'2020-11-01T00:00:00.000Z':old)} WHERE id=${id}`;
-  await sql`INSERT INTO analyses(article_id,input_revision,origin,relevance,title_zh,summary_zh,selected) VALUES(${id},1,'rule','pass','保留标题','保留既有判断',true)`;
-  await sql`INSERT INTO editorial_overrides(article_id,fields,version,reason) VALUES(${id},'{"title":"人工标题","selected":true}'::jsonb,3,'Keep editorial judgement')`;
+  await sql`INSERT INTO analyses(article_id,input_revision,origin,relevance,title_zh,summary_zh,selected) VALUES(${id},1,'rule','pass','保留標題','保留既有判斷',true)`;
+  await sql`INSERT INTO editorial_overrides(article_id,fields,version,reason) VALUES(${id},'{"title":"人工標題","selected":true}'::jsonb,3,'Keep editorial judgement')`;
   await sql`INSERT INTO grouping_overrides(article_id,reason,actor) VALUES(${id},'Keep manual grouping','test')`;
   await sql`INSERT INTO receipts(logical_key,service,purpose,subject,status,response) VALUES(${`date-${id}`},'test','score_article',${`article:${id}`},'completed','{"recorded":true}')`;
   await publishArticle(id);
@@ -78,14 +78,14 @@ test('the request is idempotent and a reused request identity cannot approve a d
   const input={version:plan.version,hash:plan.hash,publishedAt:corrected,requestId:`date-${id}`,reason:'Verified original date'};
   const first=await correctPublicationDate(id,input,'test');
   assert.deepEqual(await correctPublicationDate(id,input,'test'),first);
-  await assert.rejects(correctPublicationDate(id,{...input,publishedAt:'2020-11-02T00:00:00.000Z'},'test'),/request|请求|日期/);
+  await assert.rejects(correctPublicationDate(id,{...input,publishedAt:'2020-11-02T00:00:00.000Z'},'test'),/request|請求|日期/);
   assert.equal((await sql`SELECT 1 FROM audit_log WHERE subject=${`content:${id}`} AND action='content.correct-publication-date'`).length,1);
 });
 
 test('malformed, recent or future dates and stale material metadata are refused',async()=>{
   const id=await fixture();
   for(const value of ['2020-10-29','2020-02-30T00:00:00.000Z',new Date(Date.now()-86400000).toISOString(),new Date(Date.now()+86400000).toISOString()])
-    await assert.rejects(previewPublicationDateCorrection(id,value),/ISO|日期|历史|future|recent|historical/);
+    await assert.rejects(previewPublicationDateCorrection(id,value),/ISO|日期|歷史|future|recent|historical/);
   const plan=(await previewPublicationDateCorrection(id,corrected))!;
   const input={version:plan.version,hash:plan.hash,publishedAt:corrected,requestId:`stale-${id}`,reason:'Verified original date'};
   await assert.rejects(correctPublicationDate(id,{...input,version:plan.version+1},'test'),/修改|版本|changed/);
@@ -107,6 +107,6 @@ test('a failed audit or a changed publication decision rolls back the entire cor
     assert.deepEqual(await snapshot(),before);assert.equal((await sql`SELECT 1 FROM settings WHERE key=${`date-hook:${id}`}`).length,0);
   }finally{await sql.unsafe('DROP TRIGGER refuse_date_audit ON audit_log');await sql.unsafe('DROP FUNCTION refuse_date_audit()');}
   await sql`UPDATE editorial_overrides SET fields='{"selected":false}'::jsonb WHERE article_id=${id}`;
-  await assert.rejects(correctPublicationDate(id,{version:plan.version,hash:plan.hash,publishedAt:corrected,requestId:`decision-${id}`,reason:'Verified byline'},'test'),/公开|选稿|decision/);
+  await assert.rejects(correctPublicationDate(id,{version:plan.version,hash:plan.hash,publishedAt:corrected,requestId:`decision-${id}`,reason:'Verified byline'},'test'),/公開|選稿|decision/);
   assert.deepEqual(await snapshot(),before);
 });

@@ -342,7 +342,7 @@ export interface SiteMeta {
 export interface ChangelogRelease {
   date: string;
   time: string;
-  kind: "更新" | "优化" | "公告" | "下线";
+  kind: "更新" | "最佳化" | "公告" | "下線";
   title: string;
   body: string[];
   /** A notice readers must act on: drawn in the warning red so it cannot be skimmed past. */
